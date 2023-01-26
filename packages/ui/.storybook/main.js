@@ -1,7 +1,7 @@
 module.exports = {
   stories: [
-    "../stories/**/*.stories.mdx",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)",
+    // "../stories/**/*.stories.mdx",
+    // "../stories/**/*.stories.@(js|jsx|ts|tsx)",
     "../components/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   typescript: {
@@ -26,7 +26,5 @@ module.exports = {
     name: "@storybook/react-webpack5",
     options: {},
   },
-  docs: {
-    autodocs: true,
-  },
+  staticDirs: ["../public"],
 };
