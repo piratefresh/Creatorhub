@@ -1,0 +1,48 @@
+.root {
+  @apply cursor-pointer rounded-lg bg-black px-3 py-2 font-semibold capitalize text-white;
+}
+
+.root:hover {
+  @apply border-gray-900 bg-gray-900;
+}
+
+.root:focus {
+  @apply outline-none;
+}
+
+.sm {
+  @apply px-3 py-2;
+}
+.md {
+  @apply px-4 py-[10px];
+}
+.lg {
+  @apply px-[18px] py-[10px];
+}
+.xl {
+  @apply px-5 py-3;
+}
+.xxl {
+  @apply px-7 py-4;
+}
+
+.slim {
+  @apply transform-none py-2 normal-case;
+}
+
+.ghost {
+  @apply border border-gray-50 bg-black text-sm text-white;
+}
+
+.ghost:hover {
+  @apply border-gray-100 bg-gray-900 text-white;
+}
+
+.naked {
+  @apply border-none bg-transparent py-0 px-0 font-semibold shadow-none outline-none;
+}
+
+.naked:hover,
+.naked:focus {
+  @apply border-none bg-transparent;
+}

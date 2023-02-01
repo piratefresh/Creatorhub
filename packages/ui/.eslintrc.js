@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   extends: [
     "eslint:recommended",
+    "next",
     "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended",
     "plugin:tailwindcss/recommended",

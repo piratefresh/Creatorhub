@@ -57,8 +57,10 @@
   "dependencies": {
     "@heroicons/react": "^2.0.13",
     "@radix-ui/react-menubar": "^1.0.0",
+    "clsx": "^1.2.1",
     "next": "^13.1.1",
     "react-feather": "^2.0.10",
+    "react-merge-refs": "^2.0.1",
     "storybook-addon-next": "^1.7.1"
   }
 }

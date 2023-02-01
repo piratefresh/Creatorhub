@@ -1,0 +1,15 @@
+.wrapper {
+  @apply flex w-full items-center rounded-lg;
+}
+
+.root {
+  @apply w-full appearance-none bg-white py-[10px] px-[14px] text-gray-500 transition duration-150 ease-in-out;
+}
+
+.root:focus {
+  @apply outline-none;
+}
+
+.rounded {
+  @apply rounded-lg;
+}
