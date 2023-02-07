@@ -37,6 +37,9 @@ export const Primary: Story = {
         <Button variant="slim" size="xl">
           {args.children} slim
         </Button>
+        <Button variant="primary" size="xl">
+          {args.children} primary
+        </Button>
         <Button disabled size="2xl">
           {args.children} disabled
         </Button>

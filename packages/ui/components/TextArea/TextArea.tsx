@@ -1,9 +1,10 @@
 import cn from "clsx";
-import s from "./Input.module.css";
-import React, { InputHTMLAttributes } from "react";
+import s from "../Input/Input.module.css";
+import React, { TextareaHTMLAttributes } from "react";
 import { FieldError } from "react-hook-form";
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
 
   onChange?: (...args: any[]) => any;
@@ -23,35 +24,11 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
    * The native HTML `size` attribute to be passed to the `input`
    */
   htmlSize?: number;
-  /**
-   * Takes an node to place it to the left/start of the input, intended for icons
-   * @example
-   * addonBefore = <div>Icon</div>
-   */
-  addonBefore?: React.ReactNode;
-  /**
-   * Takes an node to place it to the right/end of the input, intended for icons
-   * @example
-   * addonBefore = <div>Icon</div>
-   */
-  addonAfter?: React.ReactNode;
 
   error?: FieldError | undefined;
 }
 
-export function hasAddon({
-  addonBefore,
-  addonAfter,
-}: {
-  addonAfter: React.ReactNode;
-  addonBefore: React.ReactNode;
-}) {
-  return !!(addonBefore || addonAfter);
-}
-
-export const Input = ({
-  addonBefore,
-  addonAfter,
+export const TextArea = ({
   className,
   children,
   onChange,
@@ -60,13 +37,11 @@ export const Input = ({
   error,
   ...rest
 }: InputProps) => {
-  const wrapperClassName = cn(s.wrapper, {
-    [s.addonWrapper]: hasAddon({ addonBefore, addonAfter }),
-  });
+  const wrapperClassName = cn(s.wrapper, {});
 
   const rootClassName = cn(
     s.root,
-    { [s.rounded]: !hasAddon({ addonBefore, addonAfter }), [s.error]: error },
+    { [s.rounded]: true, [s.error]: error },
     className
   );
 
@@ -79,12 +54,7 @@ export const Input = ({
 
   return (
     <div className={wrapperClassName}>
-      {addonBefore && (
-        <span className="flex h-full rounded-l-lg">{addonBefore}</span>
-      )}
-
-      <input
-        size={htmlSize}
+      <textarea
         className={rootClassName}
         onChange={handleOnChange}
         autoComplete="off"
@@ -94,9 +64,6 @@ export const Input = ({
         spellCheck="false"
         {...rest}
       />
-      {addonAfter && (
-        <span className="flex h-full rounded-r-lg">{addonAfter}</span>
-      )}
     </div>
   );
 };

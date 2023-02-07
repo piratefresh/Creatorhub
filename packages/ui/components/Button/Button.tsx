@@ -7,7 +7,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   className?: string;
-  variant?: "flat" | "slim" | "ghost" | "naked";
+  variant?: "flat" | "slim" | "ghost" | "naked" | "primary";
   active?: boolean;
   type?: "submit" | "reset" | "button";
   Component?: string | React.JSXElementConstructor<any>;
@@ -42,6 +42,7 @@ export const Button = React.forwardRef(
         [s.ghost]: variant === "ghost",
         [s.slim]: variant === "slim",
         [s.naked]: variant === "naked",
+        [s.primary]: variant === "primary",
         [s.sm]: size === "sm",
         [s.md]: size === "md",
         [s.lg]: size === "lg",

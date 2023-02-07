@@ -1,0 +1,26 @@
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 8px;
+
+  position: relative;
+  background: #f9f5ff;
+  border-radius: 16px;
+  mix-blend-mode: screen;
+  font-weight: 600;
+}
+
+.primary {
+  @apply text-primary-900;
+}
+.error {
+  @apply text-error-900;
+}
+.warning {
+  @apply text-warning-900;
+}
+.success {
+  @apply text-success-900;
+}

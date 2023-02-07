@@ -46,3 +46,11 @@
 .naked:focus {
   @apply border-none bg-transparent;
 }
+
+.primary {
+  @apply bg-primary-900 text-white;
+}
+.primary:hover,
+.primary:focus {
+  @apply bg-primary-700;
+}

@@ -3,7 +3,7 @@
 }
 
 .root {
-  @apply w-full appearance-none bg-white py-[10px] px-[14px] text-gray-500 transition duration-150 ease-in-out;
+  @apply w-full appearance-none border border-gray-300 bg-transparent py-[10px] px-[14px] text-gray-100 transition duration-150 ease-in-out;
 }
 
 .root:focus {
@@ -12,4 +12,8 @@
 
 .rounded {
   @apply rounded-lg;
+}
+
+.error {
+  @apply border border-error-600;
 }
