@@ -1,0 +1,48 @@
+.wrapper {
+  @apply relative;
+}
+
+.root {
+  @apply rounded-full;
+}
+.xs {
+  @apply h-6 w-6 !important;
+}
+.sm {
+  @apply h-8 w-8 !important;
+}
+.md {
+  @apply h-10 w-10 !important;
+}
+.lg {
+  @apply h-12 w-12 !important;
+}
+.xl {
+  @apply h-14 w-14 !important;
+}
+.xxl {
+  @apply h-16 w-16 !important;
+}
+
+.status {
+  @apply absolute right-0 bottom-0 z-10 rounded-full;
+}
+
+.statusXs {
+  @apply h-2 w-2;
+}
+.statusSm {
+  @apply h-2 w-2;
+}
+.statusMd {
+  @apply h-3 w-3;
+}
+.statusLg {
+  @apply h-3 w-3;
+}
+.statusXl {
+  @apply h-4 w-4;
+}
+.statusXxl {
+  @apply h-4 w-4;
+}

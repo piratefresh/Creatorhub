@@ -1,0 +1,43 @@
+/* reset */
+button {
+  all: unset;
+}
+
+.CheckboxRoot {
+  @apply flex h-5 w-5 items-center justify-center shadow-md;
+  background-color: white;
+  border-radius: 4px;
+}
+.CheckboxRoot:hover {
+  @apply cursor-pointer bg-primary-100;
+}
+.CheckboxRoot:focus {
+  @apply shadow-sm;
+}
+
+.CheckboxIndicator {
+  @apply text-primary-600;
+}
+.CheckboxIcon {
+  @apply h-full w-full text-center;
+}
+.sm {
+  @apply h-4 w-4;
+}
+.md {
+  @apply h-5 w-5;
+}
+
+.iconSm {
+  @apply h-3 w-3;
+}
+.iconMd {
+  @apply h-4 w-4;
+}
+
+.circle {
+  @apply rounded-full;
+}
+.rectangle {
+  @apply rounded-md;
+}

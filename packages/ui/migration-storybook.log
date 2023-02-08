@@ -1,90 +1,46 @@
 🔎 checking possible migrations..
-Unable to find .eslintrc config file, skipping
-
-🔎 found a 'newFrameworks' migration:
-╭ Automigration detected ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                     │
-│   We've detected you are using an older format of Storybook frameworks and builders.                                                                │
-│                                                                                                                                                     │
-│   In Storybook 7, frameworks also specify the builder to be used.                                                                                   │
-│                                                                                                                                                     │
-│   We can remove the dependencies that are no longer needed:                                                                                         │
-│                                                                                                                                                     │
-│   And set up the @storybook/react-webpack5 framework that already includes the builder.                                                             │
-│                                                                                                                                                     │
-│   To learn more about the framework field, see: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#framework-field-mandatory           │
-│                                                                                                                                                     │
-│   Webpack4 users                                                                                                                                    │
-│                                                                                                                                                     │
-│   Unless you're using Storybook's Vite builder, this automigration will install a Webpack5-based framework.                                         │
-│                                                                                                                                                     │
-│   If you were using Storybook's Webpack4 builder (default in 6.x, discontinued in 7.0), this could be a breaking                                    │
-│   change -- especially if your project has a custom webpack configuration.                                                                          │
-│                                                                                                                                                     │
-│   To learn more about migrating from Webpack4, see: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#webpack4-support-discontinued   │
-│                                                                                                                                                     │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-[?25l? Do you want to run the 'newFrameworks' migration on your project? » (Y/n)[2K[G√ Do you want to run the 'newFrameworks' migration on your project? ... yes
-[?25h✅ Removing legacy dependencies: 
-✅ Installing new dependencies: @storybook/react-webpack5
-✅ Updating framework field in main.js
-✅ ran newFrameworks migration
 
 ⚠️  failed to check fix nextjsFramework
 
 ReferenceError: require is not defined
-    at eval (eval at getFieldValue (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-29084\node_modules\.pnpm\@storybook+csf-tools@7.0.0-beta.33\node_modules\@storybook\csf-tools\dist\index.js:74:6187), <anonymous>:5:23)
-    at eval (eval at getFieldValue (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-29084\node_modules\.pnpm\@storybook+csf-tools@7.0.0-beta.33\node_modules\@storybook\csf-tools\dist\index.js:74:6187), <anonymous>:8:29)
+    at eval (eval at getFieldValue (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+csf-tools@7.0.0-beta.44\node_modules\@storybook\csf-tools\dist\index.js:74:6324), <anonymous>:5:23)
+    at eval (eval at getFieldValue (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+csf-tools@7.0.0-beta.44\node_modules\@storybook\csf-tools\dist\index.js:74:6324), <anonymous>:8:29)
     at eval (<anonymous>)
-    at ConfigFile.getFieldValue (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-29084\node_modules\.pnpm\@storybook+csf-tools@7.0.0-beta.33\node_modules\@storybook\csf-tools\dist\index.js:74:6187)
-    at Object.check (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-29084\node_modules\.pnpm\@storybook+cli@7.0.0-beta.33\node_modules\@storybook\cli\dist\generate.js:160:125)
-    at async automigrate (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-29084\node_modules\.pnpm\@storybook+cli@7.0.0-beta.33\node_modules\@storybook\cli\dist\generate.js:311:743)
-    at async Command.<anonymous> (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-29084\node_modules\.pnpm\@storybook+cli@7.0.0-beta.33\node_modules\@storybook\cli\dist\generate.js:427:2686)
+    at ConfigFile.getFieldValue (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+csf-tools@7.0.0-beta.44\node_modules\@storybook\csf-tools\dist\index.js:74:6324)
+    at Object.check (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+cli@7.0.0-beta.44\node_modules\@storybook\cli\dist\generate.js:166:125)
+    at async automigrate (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+cli@7.0.0-beta.44\node_modules\@storybook\cli\dist\generate.js:319:743)
+    at async doUpgrade (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+cli@7.0.0-beta.44\node_modules\@storybook\cli\dist\generate.js:390:2883)
+    at async withTelemetry (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+core-server@7.0.0-beta.44\node_modules\@storybook\core-server\dist\index.js:33:5568)
+    at async upgrade (C:\Users\Magnus\AppData\Local\pnpm\store\v3\tmp\dlx-27840\node_modules\.pnpm\@storybook+cli@7.0.0-beta.44\node_modules\@storybook\cli\dist\generate.js:390:3177)
 
-🔎 found a 'missing-babelrc' migration:
-╭ Automigration detected ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                                                                                                                             │
-│   We detected that your project does not have a babel configuration (.babelrc, babel.config.js, etc.).                                                                                                                                                                      │
-│                                                                                                                                                                                                                                                                             │
-│   In version 6.x, Storybook provided its own babel settings out of the box. Now, Storybook re-uses your project's babel configuration, with small, incremental updates from Storybook addons.                                                                               │
-│                                                                                                                                                                                                                                                                             │
-│   If your project does not have a babel configuration file, we can generate one that's equivalent to the 6.x defaults for you. Keep in mind that this can affect your project if it uses babel, and you may need to make additional changes based on your projects needs.   │
-│                                                                                                                                                                                                                                                                             │
-│   We can create a .babelrc.json file with some basic configuration and add any necessary package devDependencies.                                                                                                                                                           │
-│                                                                                                                                                                                                                                                                             │
-│   Please see the migration guide for more information:                                                                                                                                                                                                                      │
-│   https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#babel-mode-v7-exclusively                                                                                                                                                                                 │
-│                                                                                                                                                                                                                                                                             │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-[?25l? Do you want to run the 'missing-babelrc' migration on your project? » (Y/n)[2K[G√ Do you want to run the 'missing-babelrc' migration on your project? ... yes
+🔎 found a 'autodocsTrue' migration:
+╭ Automigration detected ─────────────────────────────────────────────────────────────────────────╮
+│                                                                                                 │
+│   We've detected that your main.js configuration file has not configured autodocs. In 6.x we    │
+│   we defaulted to having a autodocs for every story, in 7.x you need to opt in per-component.   │
+│   However, we can set the `docs.autodocs` to true to approximate the old behaviour:             │
+│                                                                                                 │
+│   docs: { autodocs: true }                                                                      │
+│                                                                                                 │
+│   More info: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#autodocs           │
+│                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────╯
+[?25l? Do you want to run the 'autodocsTrue' migration on your project? » (Y/n)[2K[G× Do you want to run the 'autodocsTrue' migration on your project? ... yes
 [?25h
-info Generating the storybook default babel config at C:\Users\Magnus\Documents\webstuff\Creatorhub\packages\ui
-info The config will contain @babel/preset-env and you will be prompted for additional presets, if you wish to add them depending on your project needs.
-[?25l? Do you want to add the TypeScript preset? » (y/N)[2K[G√ Do you want to add the TypeScript preset? ... yes
-[?25h[?25l? Do you want to add the React preset? » (y/N)[2K[G√ Do you want to add the React preset? ... yes
-[?25hinfo Writing file to C:\Users\Magnus\Documents\webstuff\Creatorhub\packages\ui\.babelrc.json
-[?25l? Shall we install the required dependencies now? (@babel/preset-env, @babel/preset-typescript, @babel/preset-react) » (Y/n)[2K[G√ Shall we install the required dependencies now? (@babel/preset-env, @babel/preset-typescript, @babel/preset-react) ... yes
-[?25hinfo Installing dependencies...
-✅ ran missing-babelrc migration
-
 ╭ Migration check ran with failures ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                                                                               │
 │                                                                                                                                                               │
-│         Successful migrations:                                                                                                                                │
+│       Failed migrations:                                                                                                                                      │
 │                                                                                                                                                               │
-│    newFrameworks, missing-babelrc                                                                                                                             │
-│                                                                                                                                                               │
-│           Failed migrations:                                                                                                                                  │
-│                                                                                                                                                               │
-│       nextjsFramework:                                                                                                                                        │
-│       require is not defined                                                                                                                                  │
+│   nextjsFramework:                                                                                                                                            │
+│   require is not defined                                                                                                                                      │
 │                                                                                                                                                               │
 │                                                                                                                                                               │
-│       You can find the full logs in C:\Users\Magnus\Documents\webstuff\Creatorhub\packages\ui\migration-storybook.log                                         │
+│   You can find the full logs in C:\Users\Magnus\Documents\webstuff\Creatorhub\packages\ui\migration-storybook.log                                             │
 │                                                                                                                                                               │
-│       ─────────────────────────────────────────────────                                                                                                       │
+│   ─────────────────────────────────────────────────                                                                                                           │
 │                                                                                                                                                               │
-│       If you'd like to run the migrations again, you can do so by running 'npx storybook@next automigrate'                                                    │
+│   If you'd like to run the migrations again, you can do so by running 'npx storybook@next automigrate'                                                        │
 │                                                                                                                                                               │
 │   The automigrations try to migrate common patterns in your project, but might not contain everything needed to migrate to the latest version of Storybook.   │
 │                                                                                                                                                               │

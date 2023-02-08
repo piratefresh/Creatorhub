@@ -23,7 +23,7 @@ module.exports = {
     "storybook-addon-next",
   ],
   framework: {
-    name: "@storybook/react-webpack5",
+    name: "@storybook/nextjs",
     options: {},
   },
   staticDirs: ["../public"],
