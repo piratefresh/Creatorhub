@@ -7,16 +7,9 @@ import {
   createColumnHelper,
   PaginationState,
   RowSelectionState,
-  SortingState,
 } from "@tanstack/react-table";
 import { makeData, Person } from "./makeData";
-import { IndeterminateCheckbox } from "../Checkbox";
-import {
-  NumberParam,
-  StringParam,
-  useQueryParams,
-  withDefault,
-} from "use-query-params";
+import { Checkbox } from "../Checkbox";
 import { Badge } from "../Badge";
 import { OnlineStatusIndicator } from "../Avatar/Avatar";
 
@@ -25,31 +18,38 @@ const meta: Meta<typeof Table> = {
   component: Table,
 };
 
-export function encodeSorting(sorting: SortingState) {
-  const result = sorting.map((item) => {
-    if (item.desc) {
-      return `${item.id}-desc`;
-    }
-    return `${item.id}-asc`;
-  });
-  return result.join(",");
-}
-
 export default meta;
 type Story = StoryObj<typeof Table>;
 
+type PropsTableInternal = {
+  getIsAllRowsSelected: () => boolean;
+  getIsSomeRowsSelected: () => boolean;
+};
+
 const columnHelper = createColumnHelper<Person>();
+
+function verifyIndeterminate(table: PropsTableInternal) {
+  if (table.getIsAllRowsSelected()) {
+    return true;
+  }
+
+  if (table.getIsSomeRowsSelected()) {
+    return "indeterminate";
+  }
+
+  return false;
+}
 
 const COLUMNS: ColumnDef<Person, any>[] = [
   {
     id: "select",
     header: ({ table }) => {
       return (
-        <IndeterminateCheckbox
+        <Checkbox
           {...{
-            checked: table.getIsAllRowsSelected(),
+            checked: verifyIndeterminate(table),
             indeterminate: table?.getIsSomeRowsSelected(),
-            onChange: table?.getToggleAllRowsSelectedHandler(),
+            onClick: table?.getToggleAllRowsSelectedHandler(),
           }}
         />
       );
@@ -57,12 +57,12 @@ const COLUMNS: ColumnDef<Person, any>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <IndeterminateCheckbox
+          <Checkbox
             {...{
               checked: row?.getIsSelected(),
               disabled: !row?.getCanSelect(),
               indeterminate: row?.getIsSomeSelected(),
-              onChange: row?.getToggleSelectedHandler(),
+              onClick: row?.getToggleSelectedHandler(),
             }}
           />
         </div>
@@ -118,14 +118,13 @@ export const Primary: Story = {
     // TABLE STATE
     const data = React.useMemo(() => makeData(10), []);
     const columns = React.useMemo(() => COLUMNS, []);
-    const [sorting, setSorting] = React.useState<SortingState>([]);
     const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
       {}
     );
 
     const [{ pageIndex, pageSize }, setPagination] =
       React.useState<PaginationState>({
-        pageIndex: 0,
+        pageIndex: 1,
         pageSize: 10,
       });
 
@@ -137,24 +136,12 @@ export const Primary: Story = {
       [pageIndex, pageSize]
     );
 
-    // React.useEffect(() => {
-    //   setParams(
-    //     {
-    //       ...params,
-    //       page: pagination.pageIndex === 0 ? 1 : pagination.pageIndex,
-    //       pageSize: pagination.pageSize ?? 10,
-    //       // q: query || undefined,
-    //       sort: encodeSorting(sorting) || undefined,
-    //     },
-    //     "replace"
-    //   );
-    // }, [pagination, params, setParams, sorting]);
-
     return (
       <Table
-        pagination={pagination}
         columns={columns}
         data={data}
+        pagination={pagination}
+        pageCount={Math.ceil(data.length / pageSize) + 1}
         setRowSelection={setRowSelection}
         rowSelection={rowSelection}
       />

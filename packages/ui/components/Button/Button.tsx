@@ -59,6 +59,7 @@ export const Button = React.forwardRef(
         className={rootClassName}
         disabled={disabled}
         ref={mergeRefs([ref, buttonRef])}
+        {...rest}
       >
         {children}
       </Component>

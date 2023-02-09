@@ -73,19 +73,19 @@ export const Table = <TData extends object>({
   });
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="flex flex-row items-center gap-4">
+    <div className="relative max-w-7xl overflow-x-auto border border-gray-500 shadow-md sm:rounded-lg">
+      <div className="flex flex-row items-center gap-4 px-5 py-5">
         <h1 className="text-lg text-gray-100">Team Members</h1>
         <Badge variant="primary">100 Users</Badge>
       </div>
-      ;
+
       <table className="w-full text-left text-xs">
         <thead className="border-b border-gray-800 text-gray-300">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
-                  className="whitespace-nowrap p-4"
+                  className="whitespace-nowrap px-5 py-5"
                   key={header.id}
                   colSpan={header.colSpan}
                   style={{
@@ -119,9 +119,12 @@ export const Table = <TData extends object>({
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr className="border-b border-gray-800 text-gray-300" key={row.id}>
+            <tr
+              className="border-b border-gray-800 px-5 py-5 text-gray-300"
+              key={row.id}
+            >
               {row.getVisibleCells().map((cell) => (
-                <td className="w-4 p-4" key={cell.id}>
+                <td className="w-4 p-5" key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

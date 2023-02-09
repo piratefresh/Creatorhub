@@ -31,7 +31,7 @@
 }
 
 .ghost {
-  @apply border border-gray-50 bg-black text-sm text-white;
+  @apply border border-solid border-gray-50 bg-black text-sm text-white;
 }
 
 .ghost:hover {

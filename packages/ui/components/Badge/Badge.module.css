@@ -14,14 +14,14 @@
 }
 
 .primary {
-  @apply text-primary-900;
+  @apply bg-primary-50 text-primary-900;
 }
 .error {
-  @apply text-error-900;
+  @apply bg-error-50 text-error-900;
 }
 .warning {
-  @apply text-warning-900;
+  @apply bg-warning-50 text-warning-900;
 }
 .success {
-  @apply text-success-900;
+  @apply bg-success-50 text-success-900;
 }

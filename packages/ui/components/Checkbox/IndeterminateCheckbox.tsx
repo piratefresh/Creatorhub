@@ -1,5 +1,7 @@
 import React from "react";
 import { HTMLProps } from "react";
+import cn from "clsx";
+import s from "./Checkbox.module.css";
 
 export function IndeterminateCheckbox({
   indeterminate,
@@ -14,11 +16,13 @@ export function IndeterminateCheckbox({
     }
   }, [ref, indeterminate]);
 
+  const rootClassName = cn(s.CheckboxIndicator, {}, className);
+
   return (
     <input
       type="checkbox"
       ref={ref}
-      className={className + " cursor-pointer"}
+      className={rootClassName + "cursor-pointer"}
       {...rest}
     />
   );

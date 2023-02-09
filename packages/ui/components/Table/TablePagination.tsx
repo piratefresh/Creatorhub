@@ -1,3 +1,4 @@
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { PaginationState, Table } from "@tanstack/react-table";
 import React from "react";
 import { useEffect } from "react";
@@ -38,8 +39,10 @@ export const TablePagination = ({
       return (
         <button
           className={`rounded-lg py-2 px-3 text-sm ${
-            currentPage === page ? "bg-blue-600" : "bg-brandLightBlack"
-          }  dark:hover:bg-gray-700 dark:hover:text-white`}
+            currentPage === page
+              ? "bg-gray-100 text-primary-900"
+              : "bg-transparent"
+          }`}
           onClick={onClick}
           type="button"
         >
@@ -56,17 +59,17 @@ export const TablePagination = ({
       className="flex items-center justify-between pt-4"
       aria-label="Table navigation"
     >
-      <div className="inline-flex items-center -space-x-px text-gray-500 dark:text-gray-400">
+      <div className="inline-flex items-center -space-x-px text-gray-300">
         <button
-          className="dark:bg-brandLightBlack block rounded-l-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          className="m-2 flex items-center gap-2 rounded-lg border border-solid border-gray-300 p-3 text-gray-300"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage() || currentPage === 1}
         >
-          {"< Previous"}
+          <ArrowLeftIcon className="h-5 w-5" /> Previous
         </button>
       </div>
 
-      <div className="inline-flex items-center gap-4 -space-x-px text-gray-500 dark:text-gray-400">
+      <div className="inline-flex items-center gap-4 -space-x-px text-gray-300">
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
@@ -80,7 +83,7 @@ export const TablePagination = ({
           ))}
         </div>
 
-        <select
+        {/* <select
           className="bg-brandLightBlack rounded-lg py-2 px-3 text-sm font-normal text-gray-500 dark:text-gray-400"
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
@@ -96,14 +99,14 @@ export const TablePagination = ({
               Show {pageSize}
             </option>
           ))}
-        </select>
+        </select> */}
       </div>
       <button
-        className="dark:bg-brandLightBlack block rounded-r-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        className="m-2 flex items-center gap-2 rounded-lg border border-solid border-gray-300 p-3 text-gray-300"
         onClick={() => table.nextPage()}
-        // disabled={!table.getCanNextPage()}
+        disabled={!table.getCanNextPage() || totalCount === 1}
       >
-        {"Next >"}
+        Next <ArrowRightIcon className="h-5 w-5" />
       </button>
     </nav>
   );

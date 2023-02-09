@@ -43,7 +43,7 @@ export const Primary: Story = {
         className="inline-flex flex-col gap-2"
         value={value}
         onValueChange={(value) => {
-          if (value) setValue(value as string);
+          setValue(value as string);
         }}
       >
         {Items.map((item) => {
@@ -71,6 +71,7 @@ export const Primary: Story = {
                   <h1>{item.title}</h1>
                   <p className="text-gray-300">{item.description}</p>
                 </div>
+                <Checkbox checked={isChecked} />
               </div>
             </CheckboxGroupItem>
           );

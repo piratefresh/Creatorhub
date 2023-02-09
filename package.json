@@ -11,7 +11,8 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev:storybook": "pnpm --filter ui run storybook"
+    "dev:storybook": "pnpm --filter ui run storybook",
+    "gen:storybook": "pnpm --filter ui run build:css"
   },
   "devDependencies": {
     "prettier": "latest",
