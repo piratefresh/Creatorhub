@@ -1,5 +1,5 @@
 .wrapper {
-  @apply flex w-full items-center rounded-lg;
+  @apply flex w-full items-center;
 }
 
 .root {
@@ -16,4 +16,14 @@
 
 .error {
   @apply border border-error-600;
+}
+
+.hideBorderBefore {
+  @apply rounded-r-lg border-l-0;
+}
+.hideBorderAfter {
+  @apply rounded-l-lg border-r-0;
+}
+.noRounded {
+  @apply rounded-none;
 }

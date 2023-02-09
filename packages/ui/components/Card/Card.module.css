@@ -1,0 +1,16 @@
+.root {
+  position: relative;
+  background: conic-gradient(
+    from 126.97deg at -3.01% 4.36%,
+    rgba(255, 255, 255, 0) -0.18deg,
+    rgba(217, 217, 217, 0.28) 95.62deg,
+    rgba(217, 217, 217, 0.18) 180deg,
+    rgba(255, 255, 255, 0) 359.82deg,
+    rgba(217, 217, 217, 0.18) 455.63deg
+  );
+  background-size: 100%;
+
+  /* gray/500 */
+  border: 1px solid #6b7280;
+  border-radius: 8px;
+}

@@ -129,12 +129,12 @@ export const Email: Story = {
         <Input
           name="email"
           addonBefore={
-            <i className="flex items-center justify-center rounded-l-lg border border-r-0 border-gray-300 px-[14px]">
+            <i className="rounded-y-lg flex items-center rounded-l-lg border border-r-0 p-1">
               <EnvelopeIcon className="h-5 w-5 text-gray-300" />
             </i>
           }
           addonAfter={
-            <i className="flex items-center justify-center rounded-r-lg border border-l-0 border-gray-300 px-[14px]">
+            <i className="rounded-y-lg flex items-center rounded-r-lg border border-l-0 p-1">
               <QuestionMarkCircleIcon className="h-5 w-5 text-gray-300" />
             </i>
           }
@@ -156,12 +156,12 @@ export const Hint: Story = {
         <Input
           name="website"
           addonBefore={
-            <span className="flex items-center justify-center rounded-l-lg border border-r-0 border-gray-300 px-[14px] text-gray-300">
+            <span className="frounded-y-lg flex items-center rounded-l-lg border border-r-0 p-1 pl-4 text-gray-300">
               Http://
             </span>
           }
           addonAfter={
-            <i className="flex items-center justify-center rounded-r-lg border border-l-0 border-gray-300 px-[14px]">
+            <i className="rounded-y-lg flex items-center rounded-r-lg border border-l-0 p-1">
               <QuestionMarkCircleIcon className="h-5 w-5 text-gray-300" />
             </i>
           }
@@ -183,12 +183,12 @@ export const SaleAmount: Story = {
         <Input
           name="saleAmount"
           addonBefore={
-            <i className="flex items-center justify-center rounded-l-lg border border-r-0 border-gray-300 px-[14px]">
+            <i className="rounded-y-lg flex items-center rounded-l-lg border border-r-0 p-1">
               <CurrencyDollarIcon className="h-5 w-5 text-gray-300" />
             </i>
           }
           addonAfter={
-            <i className="flex items-center justify-center rounded-r-lg border border-l-0 border-gray-300 px-[14px]">
+            <i className="rounded-y-lg flex items-center rounded-r-lg border border-l-0 p-1">
               <QuestionMarkCircleIcon className="h-5 w-5 text-gray-300" />
             </i>
           }

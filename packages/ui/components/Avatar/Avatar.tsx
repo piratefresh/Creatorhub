@@ -46,8 +46,8 @@ export const OnlineStatusIndicator = ({
   className,
   isOnline,
 }: {
-  isOnline: boolean;
-  className: string;
+  isOnline?: boolean;
+  className?: string;
 }) => {
   const onlineClass = "h-full w-full rounded-full bg-success-500";
   const offlineClasses = "h-full w-full rounded-full bg-error-500";

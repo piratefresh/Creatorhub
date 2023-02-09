@@ -1,0 +1,9 @@
+.AccordionChevron {
+  transition: transform 300ms;
+}
+.AccordionTrigger {
+  @apply flex w-full flex-row justify-between text-white;
+}
+.AccordionTrigger[data-state="open"] > .AccordionChevron {
+  transform: rotate(180deg);
+}

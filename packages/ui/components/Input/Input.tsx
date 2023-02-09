@@ -66,7 +66,12 @@ export const Input = ({
 
   const rootClassName = cn(
     s.root,
-    { [s.rounded]: !hasAddon({ addonBefore, addonAfter }), [s.error]: error },
+    {
+      [s.rounded]: !hasAddon({ addonBefore, addonAfter }),
+      [s.hideBorderBefore]: addonBefore,
+      [s.hideBorderAfter]: addonAfter,
+      [s.error]: error,
+    },
     className
   );
 
@@ -79,9 +84,7 @@ export const Input = ({
 
   return (
     <div className={wrapperClassName}>
-      {addonBefore && (
-        <span className="flex h-full rounded-l-lg">{addonBefore}</span>
-      )}
+      {addonBefore && <span className="flex self-stretch">{addonBefore}</span>}
 
       <input
         size={htmlSize}
@@ -94,9 +97,7 @@ export const Input = ({
         spellCheck="false"
         {...rest}
       />
-      {addonAfter && (
-        <span className="flex h-full rounded-r-lg">{addonAfter}</span>
-      )}
+      {addonAfter && <span className="flex self-stretch">{addonAfter}</span>}
     </div>
   );
 };
