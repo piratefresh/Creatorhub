@@ -1,7 +1,3 @@
-button {
-  all: unset;
-}
-
 .SwitchRoot {
   @apply bg-gray-100 shadow-sm;
   all: unset;

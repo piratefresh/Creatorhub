@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .pinkPurpleGradientText {
+    background: linear-gradient(135deg, #fab2ff 0%, #1904e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+}
+
+.heroBanner-text-gradient {
+  /* or 120% */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  background: linear-gradient(135deg, #fab2ff 0%, #1904e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 36px;
+  }
+}

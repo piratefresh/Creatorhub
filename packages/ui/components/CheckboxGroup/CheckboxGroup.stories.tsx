@@ -51,7 +51,7 @@ export const Primary: Story = {
 
           return (
             <CheckboxGroupItem
-              className="inline-flex rounded-md border border-primary-600 py-3 px-4 text-text-md"
+              className="inline-flex rounded-md border border-gray-900 py-3 px-4 text-text-md"
               value={item.value}
               aria-label={item.value}
               key={item.value}
@@ -59,7 +59,7 @@ export const Primary: Story = {
             >
               <div className="flex flex-row items-start gap-4">
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full ${
+                  className={`flex h-10 w-20 items-center justify-center rounded-full p-4 ${
                     isChecked
                       ? "bg-primary-600 text-gray-300"
                       : "bg-gray-100 text-primary-600"

@@ -7,7 +7,7 @@ interface ToggleProps extends CheckboxPrimitive.CheckboxProps {
   size?: "sm" | "md" | "lg" | "xl" | "2xl";
   variant?: "circle" | "rectangle";
   onCheckedChange?: (checked: boolean | "indeterminate") => void;
-  checked: boolean | "indeterminate";
+  checked?: boolean | "indeterminate";
   onClick?: (event: unknown) => void;
 }
 

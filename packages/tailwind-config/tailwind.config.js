@@ -6,8 +6,10 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "../../packages/ui/components/**/*.{js,ts,jsx,tsx}",
   ],
-  mode: "jit",
+
   theme: {
     extend: {
       boxShadow: {
@@ -26,6 +28,7 @@ module.exports = {
         xl: "20px",
       },
       colors: {
+        darkPurple: "#010314",
         gray: {
           25: "#FCFCFD",
           50: "#F9FAFB",

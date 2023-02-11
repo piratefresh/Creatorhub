@@ -1,10 +1,11 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Accordion } from "../Accordion";
 import { Avatar } from "../Avatar/Avatar";
 import { Input } from "../Input";
 import { Label } from "../Label";
 import s from "./SideMenu.module.css";
+import cn from "clsx";
 
 export type MenuItemProps = {
   label: React.ReactNode;
@@ -14,19 +15,37 @@ export type MenuItemProps = {
 };
 
 interface SideMenuProps {
+  className?: string;
   items: MenuItemProps[];
   footerItems: MenuItemProps[];
   // Add next-auth session type later
   session: any;
+  // For mobile close
+  onClose?: () => void;
 }
 
-export const SideMenu = ({ items, footerItems, session }: SideMenuProps) => {
+export const SideMenu = ({
+  items,
+  footerItems,
+  session,
+  className,
+  onClose,
+}: SideMenuProps) => {
   return (
-    <div className="relative h-screen max-w-sm p-5">
+    <div className={cn(className, "h-screen bg-darkPurple")}>
       <div className={s.overlay} />
-      <div className="flex h-full flex-col justify-between">
+      <div className="flex h-full flex-col justify-between p-5">
         <div className="flex flex-col gap-4">
-          <h1 className="text-display-sm text-white">CreatorHub</h1>
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="text-display-sm text-white">CreatorHub</h1>
+            <div className="flex md:hidden">
+              <XMarkIcon
+                className="h-5 w-5 cursor-pointer text-gray-100"
+                onClick={onClose}
+              />
+            </div>
+          </div>
+
           <div className="flex flex-col">
             <Label htmlFor="search">Search</Label>
             <Input
@@ -48,9 +67,14 @@ export const SideMenu = ({ items, footerItems, session }: SideMenuProps) => {
             {items.map((item) => {
               if (!item.children)
                 return (
-                  <Link className="cursor-pointer" href={item.href}>
+                  <Link
+                    className="cursor-pointer"
+                    href={item.href}
+                    key={item.href}
+                  >
                     <li className="flex items-center gap-2 p-1 text-text-md text-gray-100">
-                      {item.icon}
+                      <div className="icon">{item.icon}</div>
+
                       {item.label}
                     </li>
                   </Link>
@@ -62,9 +86,13 @@ export const SideMenu = ({ items, footerItems, session }: SideMenuProps) => {
                     {
                       title: item.label,
                       children: item.children.map((child, i) => (
-                        <Link className="cursor-pointer" href={child.href}>
+                        <Link
+                          className="cursor-pointer"
+                          href={child.href}
+                          key={child.href}
+                        >
                           <li className="flex items-center gap-2 py-4 pl-1 text-text-md text-gray-100">
-                            {child.icon}
+                            <div className="icon">{child.icon}</div>
                             {child.label}
                           </li>
                         </Link>

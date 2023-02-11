@@ -12,7 +12,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:storybook": "pnpm --filter ui run storybook",
-    "gen:storybook": "pnpm --filter ui run build:css"
+    "gen:storybook": "pnpm --filter ui run build:css",
+    "dev:web": "pnpm --filter web run dev"
   },
   "devDependencies": {
     "prettier": "latest",

@@ -3,12 +3,18 @@
   "version": "0.0.1",
   "main": "./index.tsx",
   "types": "./index.tsx",
+  "files": [
+    "dist/**"
+  ],
   "license": "MIT",
   "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "check-types": "tsc --noEmit",
     "lint": "eslint *.ts*",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build:css": "pnpx tailwindcss -i ./styles/tailwind.css -o ./public/tailwind.css",
+    "build:css": "pnpx tailwindcss -i ./styles/tailwind.css -o ./dist/tailwind.css",
     "watch:css": "pnpx tailwindcss -i ./styles/tailwind.css -o ./public/tailwind.css --watch"
   },
   "devDependencies": {
@@ -69,6 +75,7 @@
     "@tanstack/react-table": "^8.7.9",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.3",
+    "framer-motion": "^9.0.2",
     "next": "^13.1.1",
     "react-aria": "^3.22.0",
     "react-feather": "^2.0.10",
@@ -76,6 +83,8 @@
     "react-merge-refs": "^2.0.1",
     "react-stately": "^3.20.0",
     "storybook-addon-next": "^1.7.1",
+    "tailwind-merge": "^1.9.1",
+    "tsup": "^6.6.0",
     "use-query-params": "^2.1.2",
     "zod": "^3.20.2"
   }
