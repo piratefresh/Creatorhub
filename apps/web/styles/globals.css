@@ -10,6 +10,23 @@
     background-clip: text;
     text-fill-color: transparent;
   }
+
+  .whiteGradientOverlay {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: -2.13%;
+    bottom: 0%;
+    pointer-events: none;
+    background: conic-gradient(
+      from 126.97deg at -3.01% 4.36%,
+      rgba(255, 255, 255, 0) -0.18deg,
+      rgba(217, 217, 217, 0.18) 95.62deg,
+      rgba(217, 217, 217, 0.1) 180deg,
+      rgba(255, 255, 255, 0) 359.82deg,
+      rgba(217, 217, 217, 0.18) 455.63deg
+    );
+  }
 }
 
 .heroBanner-text-gradient {

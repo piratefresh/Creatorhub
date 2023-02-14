@@ -1,6 +1,7 @@
 export {
   Accordion,
   AccordionPrimitive,
+  AccordionItem,
   AccordionContent,
   AccordionTrigger,
 } from "./Accordion";
@@ -10,6 +11,7 @@ export { Button } from "./Button";
 export { Card } from "./Card";
 export { Checkbox, IndeterminateCheckbox } from "./Checkbox";
 export { CheckboxGroupRoot, CheckboxGroupItem } from "./CheckboxGroup";
+export { FileUpload } from "./FileUpload";
 export { Input } from "./Input";
 export { Label } from "./Label";
 export { Menu, SideMenu } from "./Menu";
@@ -22,3 +24,4 @@ export { WordLoop } from "./WordLoop";
 
 // TYPES
 export type { MenuLinksProps } from "./Menu";
+export type { ModalProps } from "./Modal";

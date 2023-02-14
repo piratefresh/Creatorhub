@@ -10,7 +10,7 @@ export const HeroBanner = () => (
         <span className="text-display-md font-semibold md:text-display-xl">
           Create
         </span>
-        <span className="heroBanner-text-gradient font-semibold">
+        <span className="heroBanner-text-gradient text-display-md font-semibold md:text-display-xl">
           things together
         </span>
       </h1>

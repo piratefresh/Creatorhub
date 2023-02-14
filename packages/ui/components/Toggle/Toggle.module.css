@@ -1,9 +1,10 @@
 .SwitchRoot {
-  @apply bg-gray-100 shadow-sm;
-  all: unset;
+  @apply bg-gray-300 shadow-sm;
+  background-color: rgb(242 244 247 / var(--tw-bg-opacity));
+
   width: 42px;
   height: 25px;
-  background-color: rgb(242 244 247 / var(--tw-bg-opacity));
+
   border-radius: 9999px;
   position: relative;
 
@@ -17,7 +18,7 @@
 }
 
 .SwitchThumb {
-  @apply shadow-sm;
+  @apply shadow-md;
   display: block;
   width: 21px;
   height: 21px;

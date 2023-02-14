@@ -1,8 +1,5 @@
 .CheckboxRoot {
-  all: unset;
-  @apply flex h-5 w-5 items-center justify-center shadow-md;
-  background-color: white;
-  border-radius: 4px;
+  @apply flex h-6 w-6 items-center justify-center rounded bg-white shadow-md;
 }
 .CheckboxRoot:hover {
   @apply cursor-pointer bg-primary-100;

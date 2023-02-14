@@ -59,7 +59,6 @@ export const TextArea = ({
         onChange={handleOnChange}
         autoComplete="off"
         autoCorrect="off"
-        autoCapitalize="off"
         name={name}
         spellCheck="false"
         {...rest}

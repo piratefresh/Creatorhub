@@ -26,7 +26,8 @@ export const Modal = ({
         <Dialog.Overlay className="fixed" />
         <Dialog.Content
           className={
-            className + " fixed top-1/2 left-1/2 rounded-md bg-black p-5"
+            "fixed top-1/2 left-1/2 flex flex-col gap-5 rounded-md p-5 " +
+            className
           }
           style={{ transform: "translate(-50%, -50%)" }}
         >

@@ -108,7 +108,7 @@ export const SideMenu = ({
         <div>
           <ul className="flex flex-col gap-8">
             {footerItems.map((item) => (
-              <Link className="cursor-pointer" href={item.href}>
+              <Link className="cursor-pointer" href={item.href} key={item.href}>
                 <li className="flex items-center gap-2 p-1 text-text-md text-gray-100">
                   {item.icon}
                   {item.label}

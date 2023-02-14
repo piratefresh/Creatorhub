@@ -19,6 +19,13 @@ interface AccordionProps {
   items: ItemProps[];
 }
 
+interface AccordionItem {
+  id: string;
+  value: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
 export const Accordion = ({ items }: AccordionProps) => {
   return (
     <AccordionPrimitive.Root
@@ -35,6 +42,22 @@ export const Accordion = ({ items }: AccordionProps) => {
   );
 };
 
+export const AccordionItem = ({
+  value,
+  id,
+  children,
+  className,
+}: AccordionItem) => {
+  const rootClassName = cn("flex w-full flex-col gap-4", className);
+  return (
+    <AccordionPrimitive.Root className={rootClassName} type="multiple">
+      <AccordionPrimitive.Item key={id} value={value}>
+        {children}
+      </AccordionPrimitive.Item>
+    </AccordionPrimitive.Root>
+  );
+};
+
 export const AccordionTrigger = React.forwardRef(
   (
     { children, className, ...props }: AccordionTriggerProps,
@@ -46,9 +69,9 @@ export const AccordionTrigger = React.forwardRef(
       {},
       className
     );
-    const chavronClassName = cn(s.AccordionChevron, "h-5 w-5", {}, className);
+    const chavronClassName = cn(s.AccordionChevron, "h-5 w-5", {});
     return (
-      <AccordionPrimitive.Header className={cn(className)}>
+      <AccordionPrimitive.Header>
         <AccordionPrimitive.Trigger
           className={triggerClassName}
           {...props}

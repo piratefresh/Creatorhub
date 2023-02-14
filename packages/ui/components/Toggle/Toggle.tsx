@@ -14,5 +14,3 @@ export const Toggle = ({ className, id, name }: ToggleProps) => {
     </Switch.Root>
   );
 };
-
-
