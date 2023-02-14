@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Combobox as ComboboxPrimitive, Transition } from "@headlessui/react";
 import React from "react";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
 export type Value = {
   id: string;
@@ -15,20 +16,15 @@ interface ComoboxProps {
 
 export const Combobox = ({ values, onChange, selected }: ComoboxProps) => {
   const [query, setQuery] = useState("");
-  const [createdValues, setCreatedValues] = useState([]);
 
   const filteredItems =
     query === ""
-      ? values
-      : [...values, ...createdValues].filter((value) => {
+      ? [...new Set([...values, ...selected])]
+      : [...new Set([...values, ...selected])].filter((value) => {
           return value.name.toLowerCase().includes(query.toLowerCase());
         });
 
   const handleOnChange = (values: any) => {
-    setCreatedValues((previousArr) => [
-      ...previousArr,
-      { id: query, name: query },
-    ]);
     if (selected) {
       onChange(values);
     }
@@ -39,25 +35,30 @@ export const Combobox = ({ values, onChange, selected }: ComoboxProps) => {
     <ComboboxPrimitive.Option key={index} value={item}>
       {({ selected, active }) => (
         <div
-          className={`flex items-center px-3 py-2 text-sm font-medium ${
-            active ? "bg-cyan-600" : ""
-          } ${selected ? "" : "px-11"}`}
+          className={`relative flex px-3 py-2 pl-10 text-sm font-medium ${
+            active ? "bg-gray-900" : ""
+          }`}
         >
+          {selected ? (
+            <span
+              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                active ? "text-white" : "text-teal-600"
+              }`}
+            >
+              <CheckIcon className="h-5 w-5" aria-hidden="true" />
+            </span>
+          ) : null}
           {item.name}
         </div>
       )}
     </ComboboxPrimitive.Option>
   ));
 
-  console.log("values: ", values);
-
-  console.log("filteredItems: ", filteredItems);
-
   return (
     <ComboboxPrimitive value={selected} onChange={handleOnChange} multiple>
       <div className="relative mt-1">
         <ComboboxPrimitive.Input
-          className="w-full appearance-none rounded-lg border border-gray-300 bg-transparent py-[10px] px-[14px] text-gray-100 focus:outline-none focus:ring-0"
+          className="w-full appearance-none rounded-lg border border-gray-300 bg-darkPurple py-[10px] px-[14px] text-gray-100 focus:outline-none focus:ring-0"
           onChange={(event) => setQuery(event.target.value)}
           displayValue={(value: Value) => value.name}
         />
@@ -68,19 +69,47 @@ export const Combobox = ({ values, onChange, selected }: ComoboxProps) => {
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <ComboboxPrimitive.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-transparent py-1 text-base text-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <ComboboxPrimitive.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-darkPurple py-1 text-base text-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {options.length > 0 ? (
               options
             ) : (
               <>
                 {query.length > 0 && (
-                  <ComboboxPrimitive.Option value={{ id: null, name: query }}>
-                    Create "{query}"
+                  <ComboboxPrimitive.Option
+                    value={{ id: null, name: query }}
+                    key={query}
+                  >
+                    {({ selected, active }) => (
+                      <div
+                        className={`flex px-3 py-2 text-sm font-medium ${
+                          active ? "bg-gray-900" : ""
+                        }`}
+                      >
+                        Create "{query}"
+                      </div>
+                    )}
                   </ComboboxPrimitive.Option>
                 )}
                 {filteredItems.map((value: Value) => (
-                  <ComboboxPrimitive.Option key={value.id} value={value}>
-                    {value.name}
+                  <ComboboxPrimitive.Option key={value.name} value={value}>
+                    {({ selected, active }) => (
+                      <div
+                        className={`relative flex items-center px-3 py-2 pl-10 text-sm font-medium ${
+                          active ? "bg-gray-900" : ""
+                        }`}
+                      >
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? "text-white" : "text-teal-600"
+                            }`}
+                          >
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                        {value.name}
+                      </div>
+                    )}
                   </ComboboxPrimitive.Option>
                 ))}
               </>

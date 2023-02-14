@@ -12,6 +12,10 @@ module.exports = {
 
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)"],
+        primary: ["var(--inter-font)", ...fontFamily.sans],
+      },
       boxShadow: {
         xs: "0px 1px 2px rgba(16, 24, 40, 0.05)",
         sm: "0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06)",
@@ -199,10 +203,7 @@ module.exports = {
           900: "#7E2410",
         },
       },
-      fontFamily: {
-        primary: ["var(--inter-font)", ...fontFamily.sans],
-        serif: ["var(--inter-font)", ...fontFamily.serif],
-      },
+
       fontSize: {
         "display-2xl": [
           "4.5rem",

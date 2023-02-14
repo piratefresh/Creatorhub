@@ -1,5 +1,6 @@
 "use client";
 
+import { TagGroup } from "@components/client/TagGroup";
 import { CreatePosition } from "@components/ModalViews/CreatePosition";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
@@ -15,6 +16,7 @@ import {
   Label,
   TextArea,
   Toggle,
+  Value,
 } from "ui";
 import { LocationTypeCheckGroup } from "../../components/client/LocationTypeCheckGroup";
 
@@ -28,6 +30,7 @@ export default function CreateProjectPage() {
   const [positions, setPositions] = React.useState<Position[]>([]);
   const [images, setImages] = React.useState<File[]>([]);
   const [files, setFiles] = React.useState<File[]>([]);
+  const [tags, setTags] = React.useState<Value[]>([]);
 
   const handleOpenModal = () => setOpenModal(!openModal);
 
@@ -47,10 +50,18 @@ export default function CreateProjectPage() {
     setImages([file]);
   };
 
+  const handleRemoveTag = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const value = e.currentTarget.dataset.value;
+    console.log("value: ", value);
+    const filteredTags = tags.filter((tag) => tag.name !== value);
+    console.log("filteredTags: ", filteredTags);
+    setTags(filteredTags);
+  };
+
   return (
     <div className="flex flex-col gap-8 p-5">
-      <h1 className="pinkPurpleGradientText text-display-md text-white">
-        CREATE PROJECT
+      <h1 className="pinkPurpleGradientText text-display-md font-bold text-white">
+        Create project
       </h1>
 
       <div className="flex flex-col gap-2">
@@ -69,14 +80,12 @@ export default function CreateProjectPage() {
       <LocationTypeCheckGroup />
 
       <div className="flex flex-col gap-2">
-        <div className="flex flex-col">
-          <Label
-            htmlFor="projectPhoto"
-            subLabel="The photo that will be used for your project."
-          >
-            Project Photo
-          </Label>
-        </div>
+        <Label
+          htmlFor="projectPhoto"
+          subLabel="The photo that will be used for your project."
+        >
+          Project Photo
+        </Label>
 
         {files.map((file) => (
           <img
@@ -96,15 +105,14 @@ export default function CreateProjectPage() {
 
       <div className="flex items-center gap-4">
         <Toggle name="isActive" />
-        <div className="flex flex-col">
-          <Label
-            className="font-semibold text-gray-300"
-            htmlFor="isActive"
-            subLabel="Save my login details for next time."
-          >
-            In Production
-          </Label>
-        </div>
+
+        <Label
+          className="font-semibold text-gray-300"
+          htmlFor="isActive"
+          subLabel="Save my login details for next time."
+        >
+          In Production
+        </Label>
       </div>
 
       <div className="flex flex-col">
@@ -132,15 +140,28 @@ export default function CreateProjectPage() {
         </AccordionItem>
       ))}
 
+      <div className="flex flex-col gap-4">
+        <Label
+          htmlFor="tags"
+          subLabel="Tags help people find your project easier via search."
+        >
+          Tags
+        </Label>
+
+        <TagGroup
+          onChange={setTags}
+          selected={tags}
+          onRemove={handleRemoveTag}
+        />
+      </div>
+
       <div className="flex flex-col gap-2">
-        <div className="flex flex-col">
-          <Label
-            htmlFor="projectPhoto"
-            subLabel="Add files to help talents get better understanding of your project."
-          >
-            Files
-          </Label>
-        </div>
+        <Label
+          htmlFor="projectPhoto"
+          subLabel="Add files to help talents get better understanding of your project."
+        >
+          Files
+        </Label>
 
         <FileUpload
           accept={{ "image/*": [], "text/*": [], "application/pdf": [] }}

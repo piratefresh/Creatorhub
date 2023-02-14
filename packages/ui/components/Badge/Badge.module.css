@@ -1,5 +1,5 @@
 .root {
-  @apply font-serif;
+  @apply text-xs font-medium;
   display: inline-flex;
   flex-direction: row;
   justify-content: center;

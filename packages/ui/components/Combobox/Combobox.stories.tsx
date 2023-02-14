@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // Replace your-framework with the name of your framework
 import type { Meta, StoryObj } from "@storybook/react";
 import { Combobox, Value } from "./Combobox";
+import { Tag } from "../Tag";
 
 const meta: Meta<typeof Combobox> = {
   title: "Combobox",
@@ -27,9 +28,9 @@ export const Primary: Story = {
     return (
       <div className="relative flex h-[500px] max-w-7xl flex-col items-center justify-center gap-4">
         {selectedValues.length > 0 && (
-          <ul className="text-white">
+          <ul className="flex flex-row flex-wrap gap-4 text-white">
             {selectedValues.map((value: Value) => (
-              <li key={value.id}>{value.name}</li>
+              <Tag key={value.id}>{value.name}</Tag>
             ))}
           </ul>
         )}
