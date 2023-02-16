@@ -45,8 +45,12 @@ export default function CreateProjectPage() {
     );
 
     const contentType = res.headers.get("content-type");
+    console.log("contentType: ", contentType);
     const blob = await res.blob();
-    const file = new File([blob], "randomImage", { contentType });
+    const file = new File([blob], "randomImage", {
+      // @ts-ignore
+      contentType,
+    });
     setImages([file]);
   };
 
@@ -57,6 +61,8 @@ export default function CreateProjectPage() {
     console.log("filteredTags: ", filteredTags);
     setTags(filteredTags);
   };
+
+  console.log("files: ", files);
 
   return (
     <div className="flex flex-col gap-8 p-5">
@@ -87,10 +93,10 @@ export default function CreateProjectPage() {
           Project Photo
         </Label>
 
-        {files.map((file) => (
+        {images.map((image) => (
           <img
             className="h-32 w-full rounded-lg object-cover"
-            src={URL.createObjectURL(file)}
+            src={URL.createObjectURL(image)}
           />
         ))}
         <FileUpload accept={{ "image/*": [] }} onChange={setImages} />
@@ -152,6 +158,7 @@ export default function CreateProjectPage() {
           onChange={setTags}
           selected={tags}
           onRemove={handleRemoveTag}
+          placeholder="Create tag"
         />
       </div>
 

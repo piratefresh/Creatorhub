@@ -1,11 +1,11 @@
 import { Inter as FontSans } from "@next/font/google";
-import { TailwindIndicator } from "../components/tailwind-indicator";
-import { cn } from "../utils/cn";
 
-import "../styles/globals.css";
-
-import { MainNav } from "../components/mainNav";
 import { getCurrentUser } from "lib/getSession";
+import { TailwindIndicator } from "@components/tailwind-indicator";
+import { MainNav } from "@components/mainNav";
+import { cn } from "utils/cn";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,24 +38,28 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({ children }: RootLayoutProps) {
-  const session = await getCurrentUser();
-
+export default function RootLayout({ children }: RootLayoutProps) {
+  const { data: session } = useSession();
   return (
     <html
       lang="en"
       className={cn(
         "bg-darkPurple font-sans text-slate-900 antialiased",
-        fontSans.variable
+        fontSans.variable,
+        fontSans.className
       )}
     >
       <head />
       <body className="flex flex-col md:flex-row">
         <TailwindIndicator />
 
-        <MainNav session={session} />
+        <MainNav session={session as Session} />
         {children}
       </body>
     </html>
   );
 }
+
+export const getRootLayout = (page: React.ReactElement) => (
+  <RootLayout>{page}</RootLayout>
+);

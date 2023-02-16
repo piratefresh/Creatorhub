@@ -240,31 +240,31 @@ module.exports = {
             lineHeight: "2rem",
           },
         ],
-        "text-xl": [
+        xl: [
           "1.25rem",
           {
             lineHeight: "1.875rem",
           },
         ],
-        "text-lg": [
+        lg: [
           "1.125rem",
           {
             lineHeight: "1.75rem",
           },
         ],
-        "text-md": [
+        md: [
           "1rem",
           {
             lineHeight: "1.5rem",
           },
         ],
-        "text-sm": [
+        sm: [
           "0.875rem",
           {
             lineHeight: "1.25rem",
           },
         ],
-        "text-xs": [
+        xs: [
           "0.75rem",
           {
             lineHeight: "1.125rem",

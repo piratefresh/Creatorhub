@@ -5,6 +5,7 @@ import {
   type DefaultSession,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "../env.mjs";
 import { prisma } from "./db";
@@ -17,7 +18,7 @@ import { prisma } from "./db";
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  **/
 declare module "next-auth" {
-  interface Session extends DefaultSession {
+  export interface Session extends DefaultSession {
     user: {
       id: string;
       // ...other properties
@@ -49,6 +50,10 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
+    GitHubProvider({
+      clientId: env.GITHUB_CLIENT_ID as string,
+      clientSecret: env.GITHUB_CLIENT_SECRET as string,
+    }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,

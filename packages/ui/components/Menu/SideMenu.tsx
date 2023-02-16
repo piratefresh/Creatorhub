@@ -1,11 +1,17 @@
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLeftOnRectangleIcon,
+  MagnifyingGlassIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Accordion } from "../Accordion";
 import { Avatar } from "../Avatar/Avatar";
 import { Input } from "../Input";
 import { Label } from "../Label";
 import s from "./SideMenu.module.css";
+import type { Session } from "next-auth";
 import cn from "clsx";
+import { Button } from "../Button";
 
 export type MenuItemProps = {
   label: React.ReactNode;
@@ -19,15 +25,18 @@ interface SideMenuProps {
   items: MenuItemProps[];
   footerItems: MenuItemProps[];
   // Add next-auth session type later
-  session: any;
+  session: Session;
   // For mobile close
   onClose?: () => void;
+  // Sign out fn
+  signOut?: () => void;
 }
 
 export const SideMenu = ({
   items,
   footerItems,
   session,
+  signOut,
   className,
   onClose,
 }: SideMenuProps) => {
@@ -68,6 +77,7 @@ export const SideMenu = ({
               if (!item.children)
                 return (
                   <Link
+                    onClick={onClose}
                     className="cursor-pointer"
                     href={item.href}
                     key={item.href}
@@ -82,11 +92,13 @@ export const SideMenu = ({
 
               return (
                 <Accordion
+                  key={item.href}
                   items={[
                     {
                       title: item.label,
                       children: item.children.map((child, i) => (
                         <Link
+                          onClick={onClose}
                           className="cursor-pointer"
                           href={child.href}
                           key={child.href}
@@ -108,7 +120,12 @@ export const SideMenu = ({
         <div>
           <ul className="flex flex-col gap-8">
             {footerItems.map((item) => (
-              <Link className="cursor-pointer" href={item.href} key={item.href}>
+              <Link
+                className="cursor-pointer"
+                onClick={onClose}
+                href={item.href}
+                key={item.href}
+              >
                 <li className="flex items-center gap-2 p-1 text-text-md text-gray-100">
                   {item.icon}
                   {item.label}
@@ -117,13 +134,31 @@ export const SideMenu = ({
             ))}
 
             <div className="h-[1px] border-t border-gray-800" />
-            <div className="flex gap-2">
-              <Avatar src={session.user.imageUrl} />
-              <div className="flex flex-col">
-                <span className="text-gray-100">{session.user.name}</span>
-                <span className="text-gray-300">{session.user.email}</span>
+            {session ? (
+              <div className="flex items-center gap-2">
+                <Avatar src={session.user?.image as string} />
+                <div className="flex flex-col">
+                  <span className="text-gray-100">{session.user?.name}</span>
+                  <span className="text-gray-300">{session.user?.email}</span>
+                </div>
+                <Button onClick={signOut}>
+                  <ArrowLeftOnRectangleIcon className="h-6 w-6 text-gray-300" />
+                </Button>
               </div>
-            </div>
+            ) : (
+              <div className="flex gap-4">
+                <Link href="/login" onClick={onClose} className="text-gray-300">
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={onClose}
+                  className="text-gray-300"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </ul>
         </div>
       </div>

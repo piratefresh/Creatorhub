@@ -12,9 +12,15 @@ interface ComoboxProps {
   values: Value[];
   selected: Value[];
   onChange: (values: Value[]) => void;
+  placeholder?: string;
 }
 
-export const Combobox = ({ values, onChange, selected }: ComoboxProps) => {
+export const Combobox = ({
+  values,
+  onChange,
+  selected,
+  placeholder,
+}: ComoboxProps) => {
   const [query, setQuery] = useState("");
 
   const filteredItems =
@@ -58,6 +64,7 @@ export const Combobox = ({ values, onChange, selected }: ComoboxProps) => {
     <ComboboxPrimitive value={selected} onChange={handleOnChange} multiple>
       <div className="relative mt-1">
         <ComboboxPrimitive.Input
+          placeholder={placeholder}
           className="w-full appearance-none rounded-lg border border-gray-300 bg-darkPurple py-[10px] px-[14px] text-gray-100 focus:outline-none focus:ring-0"
           onChange={(event) => setQuery(event.target.value)}
           displayValue={(value: Value) => value.name}

@@ -1,11 +1,14 @@
 "use client";
-import { Bars3Icon, HomeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import React from "react";
 import { SideMenu } from "ui";
-import { MENU_ITEMS, MENU_FOOTER_DATA, session } from "../config/MainNav";
+import { signOut } from "next-auth/react";
+import { type Session } from "next-auth";
+import { MENU_ITEMS, MENU_FOOTER_DATA } from "../config/MainNav";
 
-export const MainNav = () => {
+export const MainNav = ({ session }: { session: Session }) => {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
+
   return (
     <nav>
       <div className="hidden gap-6 md:flex">
@@ -29,6 +32,7 @@ export const MainNav = () => {
             footerItems={MENU_FOOTER_DATA}
             session={session}
             onClose={() => setShowMobileMenu(!showMobileMenu)}
+            signOut={signOut}
           />
         </div>
       )}

@@ -1,3 +1,4 @@
+import { getCurrentUser } from "lib/getSession";
 import { WordLoop } from "ui";
 import { HeroBanner } from "../components/HeroBanner";
 

@@ -10,11 +10,11 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ["source.unsplash.com"],
+    domains: ["source.unsplash.com", "avatars.githubusercontent.com"],
   },
   transpilePackages: ["ui"],
   experimental: {
-    appDir: true,
+    appDir: false,
     // serverComponentsExternalPackages: ["@prisma/client"],
   },
   /**

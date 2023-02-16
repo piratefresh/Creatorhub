@@ -67,13 +67,6 @@ export const LocationTypeCheckGroup = () => {
                   <h1>{item.title}</h1>
                 </div>
               </div>
-
-              {/* <Checkbox
-                size="md"
-                variant="circle"
-                className=""
-                checked={isChecked}
-              /> */}
             </div>
           </CheckboxGroupItem>
         );

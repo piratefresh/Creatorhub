@@ -7,9 +7,15 @@ interface TagGroupProps {
   onChange: (values: Value[]) => void;
   selected: Value[];
   onRemove: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  placeholder?: string;
 }
 
-export const TagGroup = ({ onChange, onRemove, selected }: TagGroupProps) => {
+export const TagGroup = ({
+  onChange,
+  onRemove,
+  selected,
+  placeholder,
+}: TagGroupProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row flex-wrap gap-4">
@@ -23,7 +29,12 @@ export const TagGroup = ({ onChange, onRemove, selected }: TagGroupProps) => {
           </ul>
         )}
       </div>
-      <Combobox values={[]} selected={selected} onChange={onChange} />
+      <Combobox
+        values={[]}
+        selected={selected}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     </div>
   );
 };
