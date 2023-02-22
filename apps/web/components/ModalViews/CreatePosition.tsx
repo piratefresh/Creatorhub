@@ -1,21 +1,19 @@
 "use client";
 
-import { Button, Input, Modal, TextArea } from "ui";
+import { Button, Input, Label, Modal, TextArea, Value } from "ui";
 import { Control, Controller, useForm } from "react-hook-form";
 import { AcademicCapIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { Position } from "app/createproject/page";
+import { Position } from "@prisma/client";
+import { TagGroup } from "@components/client/TagGroup";
+import React from "react";
+import { PositionWithSkill } from "types/index.t";
 
 interface CreatePositionModalProps {
-  onConfirm: (value: Position) => void;
+  onConfirm: (newPositions: PositionWithSkill) => void;
   setOpen: (open: boolean) => void;
   open: boolean;
-  title: string;
-  description: string;
-}
-
-interface PrimaryForm {
   title: string;
   description: string;
 }
@@ -35,17 +33,29 @@ export const CreatePosition = ({
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<PrimaryForm>({
+  } = useForm<PositionWithSkill>({
+    defaultValues: {
+      skills: [],
+    },
     resolver: zodResolver(Schema),
   });
 
-  const onSubmit = (data: PrimaryForm) => onConfirm(data);
+  const onSubmit = (data: PositionWithSkill) => onConfirm(data);
+
+  const [tags, setTags] = React.useState<Value[]>([]);
+
+  const handleRemoveTag = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const value = e.currentTarget.dataset.value;
+
+    const filteredTags = tags.filter((skill) => skill.name !== value);
+
+    setTags(filteredTags);
+  };
 
   return (
     <Modal
-      className="bg- w-full max-w-sm border border-gray-500 bg-darkPurple"
+      className="w-full max-w-sm border border-gray-500 bg-darkPurple font-sans"
       open={open}
       onOpenChange={setOpen}
       icon={<AcademicCapIcon className="h-7 w-7 text-success-600" />}
@@ -57,12 +67,7 @@ export const CreatePosition = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-row flex-wrap md:max-w-5xl">
-          <label
-            className="mb-2 text-sm font-medium text-gray-300"
-            htmlFor="password"
-          >
-            Title
-          </label>
+          <Label htmlFor="title">Title</Label>
           <Controller
             name="title"
             control={control}
@@ -70,17 +75,12 @@ export const CreatePosition = ({
           />
           {errors.title && (
             <p className="text-error-600" role="alert">
-              Current password is required
+              {errors.title.message}
             </p>
           )}
         </div>
         <div className="flex max-w-5xl flex-row flex-wrap">
-          <label
-            className="mb-2 text-sm font-medium text-gray-300"
-            htmlFor="description"
-          >
-            Description
-          </label>
+          <Label htmlFor="description">Description</Label>
           <Controller
             name="description"
             control={control}
@@ -90,9 +90,31 @@ export const CreatePosition = ({
           />
           {errors.description && (
             <p className="text-error-600" role="alert">
-              New password is required
+              {errors.description.message}
             </p>
           )}
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Label
+            htmlFor="tags"
+            subLabel="Tags help people find your project easier via search."
+          >
+            Tags
+          </Label>
+
+          <Controller
+            name="skills"
+            control={control}
+            render={({ field }) => (
+              <TagGroup
+                onChange={field.onChange}
+                selected={field.value}
+                onRemove={handleRemoveTag}
+                placeholder="Create tag"
+              />
+            )}
+          />
         </div>
 
         <div className="flex flex-row items-center gap-4">

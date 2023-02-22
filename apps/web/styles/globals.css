@@ -46,3 +46,8 @@
     font-size: 36px;
   }
 }
+
+html,
+body {
+  font-family: "Inter", sans-serif;
+}

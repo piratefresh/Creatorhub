@@ -5,10 +5,18 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator zod {
+    provider              = "zod-prisma"
+    output                = "./zod" // (default) the directory where generated zod schemas will be saved
+    relationModel         = true // (default) Create and export both plain and related models.
+    modelCase             = "PascalCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+    useDecimalJs          = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+    prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
+}
+
 datasource db {
-    provider     = "mysql"
-    url          = env("DATABASE_URL")
-    relationMode = "prisma"
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model Example {
@@ -52,6 +60,25 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    description      String?
+    skills           String[]
+    rating           Int?               @default(0)
+    role             Role               @default(USER)
+    projects         Project[]
+    Memberships      Memberships[]
+    Organization     Organization?      @relation(fields: [organizationId], references: [id])
+    organizationId   String?
+    ConversationUser ConversationUser[]
+    Message          Message[]
+    Applications     Applications[]
+
+    personalWebsite String
+    instagram       String
+    youtube         String
+    vimeo           String
+    github          String
+    tiktok          String
 }
 
 model VerificationToken {
@@ -60,4 +87,131 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Project {
+    id           String        @unique @default(uuid())
+    updatedAt    DateTime?     @default(now()) @updatedAt
+    published    Boolean       @default(true)
+    title        String        @db.VarChar(255)
+    description  String
+    tags         String[]
+    image        String
+    files        String[]
+    inProduction Boolean       @default(false)
+    category     String?
+    author       User?         @relation(fields: [authorId], references: [id])
+    authorId     String?
+    positions    Position[]
+    memberships  Memberships[]
+
+    locationType LocationType
+    location     String
+    state        String?
+    city         String?
+    lat          Float?
+    lng          Float?
+
+    timezone     String
+    Applications Applications[]
+}
+
+model Position {
+    id           String         @unique @default(uuid())
+    title        String
+    description  String
+    skills       Skill[]
+    Applications Applications[]
+    Project      Project?       @relation(fields: [projectId], references: [id])
+    projectId    String?
+}
+
+model Skill {
+    id         String    @unique @default(uuid())
+    name       String
+    Position   Position? @relation(fields: [positionId], references: [id])
+    positionId String?
+}
+
+model Organization {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    email     String   @unique
+    name      String?
+    members   User[]
+}
+
+model Memberships {
+    project    Project  @relation(fields: [projectId], references: [id])
+    projectId  String // relation scalar field (used in the `@relation` attribute above)
+    user       User     @relation(fields: [userId], references: [id])
+    userId     String // relation scalar field (used in the `@relation` attribute above)
+    assignedAt DateTime @default(now())
+    assignedBy String
+
+    @@id([projectId, userId])
+}
+
+model ConversationUser {
+    userId         String
+    conversationId String
+    createdAt      DateTime     @default(now()) @db.Timestamptz()
+    // lastRead DateTime?
+    user           User         @relation(fields: [userId], references: [id])
+    conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+    @@unique([userId, conversationId])
+    @@index([conversationId])
+}
+
+model Conversation {
+    id                String             @id @default(uuid())
+    lastMessageId     String?            @unique
+    createdAt         DateTime           @default(now()) @db.Timestamptz()
+    messages          Message[]
+    conversationUsers ConversationUser[]
+
+    @@index([lastMessageId])
+}
+
+model Message {
+    id             String       @id @default(uuid())
+    createdAt      DateTime     @default(now()) @db.Timestamptz()
+    text           String
+    sender         User         @relation(fields: [senderId], references: [id])
+    senderId       String
+    conversation   Conversation @relation(fields: [conversationId], references: [id])
+    conversationId String
+
+    @@index([conversationId])
+}
+
+model Applications {
+    id          String            @id @default(uuid())
+    messageText String
+    status      ApplicationStatus
+    userId      String
+    projectId   String
+    positionId  String
+    user        User              @relation(fields: [userId], references: [id])
+    project     Project           @relation(fields: [projectId], references: [id])
+    position    Position          @relation(fields: [positionId], references: [id])
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum ApplicationStatus {
+    PENDING
+    READ
+    APPROVED
+    DECLINED
+}
+
+enum LocationType {
+    REMOTE
+    ONSITE
+    HYBRID
 }

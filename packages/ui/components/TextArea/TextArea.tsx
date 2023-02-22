@@ -7,7 +7,6 @@ export interface InputProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
 
-  onChange?: (...args: any[]) => any;
   /**
    * The border color when the input is focused. Use color keys in `theme.colors`
    * @example
@@ -31,7 +30,7 @@ export interface InputProps
 export const TextArea = ({
   className,
   children,
-  onChange,
+
   htmlSize,
   name,
   error,
@@ -45,18 +44,10 @@ export const TextArea = ({
     className
   );
 
-  const handleOnChange = (e: any) => {
-    if (onChange && e.target) {
-      onChange(e.target?.value);
-    }
-    return null;
-  };
-
   return (
     <div className={wrapperClassName}>
       <textarea
         className={rootClassName}
-        onChange={handleOnChange}
         autoComplete="off"
         autoCorrect="off"
         name={name}

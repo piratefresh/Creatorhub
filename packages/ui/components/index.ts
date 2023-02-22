@@ -12,6 +12,7 @@ export { Card } from "./Card";
 export { Checkbox, IndeterminateCheckbox } from "./Checkbox";
 export { CheckboxGroupRoot, CheckboxGroupItem } from "./CheckboxGroup";
 export { Combobox } from "./Combobox";
+export { FileTypeIcon } from "./FileTypeIcon";
 export { FileUpload } from "./FileUpload";
 export { Input } from "./Input";
 export { Label } from "./Label";

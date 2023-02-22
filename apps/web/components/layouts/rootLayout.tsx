@@ -1,6 +1,4 @@
 import { Inter as FontSans } from "@next/font/google";
-
-import { getCurrentUser } from "lib/getSession";
 import { TailwindIndicator } from "@components/tailwind-indicator";
 import { MainNav } from "@components/mainNav";
 import { cn } from "utils/cn";
@@ -41,22 +39,18 @@ export const metadata = {
 export default function RootLayout({ children }: RootLayoutProps) {
   const { data: session } = useSession();
   return (
-    <html
-      lang="en"
+    <main
       className={cn(
-        "bg-darkPurple font-sans text-slate-900 antialiased",
+        "flex flex-col bg-darkPurple md:flex-row",
         fontSans.variable,
         fontSans.className
       )}
     >
-      <head />
-      <body className="flex flex-col md:flex-row">
-        <TailwindIndicator />
+      <TailwindIndicator />
 
-        <MainNav session={session as Session} />
-        {children}
-      </body>
-    </html>
+      <MainNav session={session as Session} />
+      {children}
+    </main>
   );
 }
 

@@ -1,9 +1,11 @@
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
-import { useDropzone, Accept } from "react-dropzone";
+import React from "react";
+import { useDropzone, Accept, DropzoneOptions } from "react-dropzone";
 
-interface FileUploadProps {
+interface FileUploadProps extends DropzoneOptions {
   onChange: (files: File[]) => void;
   accept?: Accept;
+  multiple?: boolean;
 }
 
 export const FileUpload = ({
@@ -11,16 +13,36 @@ export const FileUpload = ({
   accept = {
     "image/*": [],
   },
+  multiple,
 }: FileUploadProps) => {
-  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
-    useDropzone({
-      accept,
-      onDrop: (files) => onChange(files),
-    });
+  const {
+    getRootProps,
+    getInputProps,
+    isFocused,
+    isDragAccept,
+    isDragReject,
+    acceptedFiles,
+    isDragActive,
+  } = useDropzone({
+    accept,
+    multiple: true,
+  });
+
+  React.useEffect(() => {
+    if (acceptedFiles.length) {
+      console.log("acceptedFiles: ", acceptedFiles);
+      onChange(acceptedFiles);
+    }
+  }, [acceptedFiles]);
+
+  console.log("acceptedFiles: ", acceptedFiles);
+
   return (
     <div className="container">
       <div
-        className="flex flex-1 flex-col items-center rounded-lg border border-gray-500 p-5 text-gray-100 outline-none"
+        className={`${
+          isDragActive ? "border-dotted" : ""
+        } flex flex-1 flex-col items-center rounded-lg border border-gray-500 p-5 text-gray-100 outline-none`}
         {...getRootProps({ isFocused, isDragAccept, isDragReject })}
       >
         <input {...getInputProps()} />

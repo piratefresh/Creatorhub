@@ -6,7 +6,6 @@ import { FieldError } from "react-hook-form";
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 
-  onChange?: (...args: any[]) => any;
   /**
    * The border color when the input is focused. Use color keys in `theme.colors`
    * @example
@@ -54,7 +53,7 @@ export const Input = ({
   addonAfter,
   className,
   children,
-  onChange,
+
   htmlSize,
   name,
   error,
@@ -75,13 +74,6 @@ export const Input = ({
     className
   );
 
-  const handleOnChange = (e: any) => {
-    if (onChange && e.target) {
-      onChange(e.target?.value);
-    }
-    return null;
-  };
-
   return (
     <div className={wrapperClassName}>
       {addonBefore && <span className="flex self-stretch">{addonBefore}</span>}
@@ -89,7 +81,6 @@ export const Input = ({
       <input
         size={htmlSize}
         className={rootClassName}
-        onChange={handleOnChange}
         autoComplete="off"
         autoCorrect="off"
         name={name}

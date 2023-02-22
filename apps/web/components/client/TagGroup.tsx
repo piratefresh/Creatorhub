@@ -38,3 +38,8 @@ export const TagGroup = ({
     </div>
   );
 };
+
+export const createOption = (name: string) => ({
+  name,
+  id: name.toLowerCase().replace(/\W/g, ""),
+});

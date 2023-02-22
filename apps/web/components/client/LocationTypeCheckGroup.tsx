@@ -6,47 +6,53 @@ import {
   LightBulbIcon,
   ServerIcon,
 } from "@heroicons/react/24/outline";
+import { LocationType } from "@prisma/client";
 import React from "react";
-import { CheckboxGroupRoot, CheckboxGroupItem, Checkbox } from "ui";
+import { CheckboxGroupRoot, CheckboxGroupItem } from "ui";
+
+interface LocationTypeCheckGroupProps {
+  onChange: (value: string | string[]) => void;
+  value?: string | number | readonly string[] | undefined;
+}
 
 const Items = [
   {
     title: "On Site",
     description: "",
     icon: <ServerIcon className="h-6 w-6" />,
-    value: "On Site",
+    value: LocationType.ONSITE,
   },
   {
     title: "Hybrid",
     description: "",
     icon: <FireIcon className="h-6 w-6" />,
-    value: "Hybrid",
+    value: LocationType.HYBRID,
   },
   {
     title: "Remote",
     description: "",
     icon: <LightBulbIcon className="h-6 w-6" />,
-    value: "Remote",
+    value: LocationType.REMOTE,
   },
 ];
 
-export const LocationTypeCheckGroup = () => {
-  const [locationType, setLocationType] = React.useState("");
+export const LocationTypeCheckGroup = ({
+  onChange,
+  value,
+}: LocationTypeCheckGroupProps) => {
   return (
     <CheckboxGroupRoot
       type="single"
       className="inline-flex flex-col gap-2"
-      value={locationType}
-      onValueChange={(value) => {
-        setLocationType(value as string);
-      }}
+      value={value}
+      onValueChange={onChange}
     >
       {Items.map((item) => {
-        const isChecked = item.value === locationType;
+        const isChecked = item.value === value;
 
         return (
           <CheckboxGroupItem
-            className="inline-flex rounded-md border border-primary-600 py-3 px-4 text-text-md"
+            className="text-text-md inline-flex rounded-md border border-primary-600 py-3 px-4"
             value={item.value}
             aria-label={item.value}
             key={item.value}
