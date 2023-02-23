@@ -1,3 +1,5 @@
+import { getResourceType } from "./getResourceType";
+
 export async function uploadFile(file: File) {
   const signResponse = await fetch("/api/sign-cloudinary", { method: "POST" });
   const signData = await signResponse.json();

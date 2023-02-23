@@ -11,21 +11,18 @@ import {
   RelatedApplicationsModel,
 } from "./index";
 
-export const PositionModel = z.object({
-  title: z.string(),
-  description: z.string(),
-});
-
 export const ProjectModel = z.object({
+  // id: z.string(),
+  updatedAt: z.date().nullish(),
   published: z.boolean(),
   title: z.string(),
   description: z.string(),
   tags: z.string().array(),
   image: z.string(),
-  files: z.string().array().optional(),
+  files: z.string().array(),
   inProduction: z.boolean(),
   category: z.string().nullish(),
-  positions: PositionModel.array(),
+  // authorId: z.string().nullish(),
   locationType: z.nativeEnum(LocationType),
   location: z.string(),
   state: z.string().nullish(),

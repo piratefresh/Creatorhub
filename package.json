@@ -13,7 +13,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:storybook": "pnpm --filter ui run storybook",
     "gen:storybook": "pnpm --filter ui run build:css",
-    "dev:web": "pnpm --filter web run dev"
+    "dev:web": "pnpm --filter web run dev",
+    "dev:studio": "pnpm --filter web run studio"
   },
   "devDependencies": {
     "prettier": "latest",

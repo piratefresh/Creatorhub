@@ -34,6 +34,7 @@ export const CreatePosition = ({
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<PositionWithSkill>({
     defaultValues: {
       skills: [],
@@ -41,7 +42,16 @@ export const CreatePosition = ({
     resolver: zodResolver(Schema),
   });
 
-  const onSubmit = (data: PositionWithSkill) => onConfirm(data);
+  const handleSubmitWithoutPropagation = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSubmit(onSubmit)(e);
+  };
+
+  const onSubmit = (data: PositionWithSkill) => {
+    onConfirm(data);
+    reset();
+  };
 
   const [tags, setTags] = React.useState<Value[]>([]);
 
@@ -64,7 +74,7 @@ export const CreatePosition = ({
     >
       <form
         className="flex flex-col gap-4 py-4"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmitWithoutPropagation}
       >
         <div className="flex flex-row flex-wrap md:max-w-5xl">
           <Label htmlFor="title">Title</Label>
@@ -125,6 +135,7 @@ export const CreatePosition = ({
             className="inline-flex self-start"
             variant="ghost"
             onClick={() => setOpen(false)}
+            type="button"
           >
             Cancel
           </Button>

@@ -73,12 +73,12 @@ model User {
     Message          Message[]
     Applications     Applications[]
 
-    personalWebsite String
-    instagram       String
-    youtube         String
-    vimeo           String
-    github          String
-    tiktok          String
+    personalWebsite String?
+    instagram       String?
+    youtube         String?
+    vimeo           String?
+    github          String?
+    tiktok          String?
 }
 
 model VerificationToken {

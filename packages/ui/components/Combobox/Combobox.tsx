@@ -37,37 +37,45 @@ export const Combobox = ({
     setQuery("");
   };
 
-  const options = filteredItems.map((item, index) => (
-    <ComboboxPrimitive.Option key={index} value={item}>
-      {({ selected, active }) => (
-        <div
-          className={`relative flex px-3 py-2 pl-10 text-sm font-medium ${
-            active ? "bg-gray-900" : ""
-          }`}
-        >
-          {selected ? (
-            <span
-              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                active ? "text-white" : "text-teal-600"
+  const options = query
+    ? filteredItems.map((item, index) => (
+        <ComboboxPrimitive.Option key={index} value={item}>
+          {({ selected, active }) => (
+            <div
+              className={`relative flex px-3 py-2 pl-10 text-sm font-medium ${
+                active ? "bg-gray-900" : ""
               }`}
             >
-              <CheckIcon className="h-5 w-5" aria-hidden="true" />
-            </span>
-          ) : null}
-          {item.name}
-        </div>
-      )}
-    </ComboboxPrimitive.Option>
-  ));
+              {selected ? (
+                <span
+                  className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                    active ? "text-white" : "text-teal-600"
+                  }`}
+                >
+                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+              ) : null}
+              {item.name}
+            </div>
+          )}
+        </ComboboxPrimitive.Option>
+      ))
+    : [];
 
   return (
     <ComboboxPrimitive value={selected} onChange={handleOnChange} multiple>
       <div className="relative mt-1">
         <ComboboxPrimitive.Input
+          value={query}
           placeholder={placeholder}
           className="w-full appearance-none rounded-lg border border-gray-300 bg-darkPurple py-[10px] px-[14px] text-gray-100 focus:outline-none focus:ring-0"
           onChange={(event) => setQuery(event.target.value)}
-          displayValue={(value: Value) => value.name}
+          onKeyPress={(e: any) => {
+            if (e.key === "Enter") {
+              console.log("ENTER CLICKED");
+              setQuery("");
+            }
+          }}
         />
         <Transition
           as={React.Fragment}

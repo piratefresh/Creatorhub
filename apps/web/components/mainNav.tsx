@@ -5,6 +5,7 @@ import { SideMenu } from "ui";
 import { signOut } from "next-auth/react";
 import { type Session } from "next-auth";
 import { MENU_ITEMS, MENU_FOOTER_DATA } from "../config/MainNav";
+import Link from "next/link";
 
 export const MainNav = ({ session }: { session: Session }) => {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
@@ -19,7 +20,9 @@ export const MainNav = ({ session }: { session: Session }) => {
         />
       </div>
       <div className="flex w-full flex-row items-center justify-between space-x-2 p-5 md:hidden">
-        <h1 className="text-display-sm text-white">CreatorHub</h1>
+        <Link href="/">
+          <h1 className="text-display-sm text-white">CreatorHub</h1>
+        </Link>
         <button className="" onClick={() => setShowMobileMenu(!showMobileMenu)}>
           {!showMobileMenu && <Bars3Icon className="h-5 w-5 text-white" />}
         </button>

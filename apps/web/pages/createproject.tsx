@@ -27,6 +27,7 @@ import { humanFileSize } from "@utils/humanFileSize";
 import { cloudinary } from "@server/cloudinary";
 import { api } from "@utils/api";
 import { toBase64 } from "@utils/base64";
+import { uploadFile } from "@utils/cloudinary";
 
 export default function CreateProjectPage() {
   const { control, handleSubmit, setValue, watch } = useForm<ProjectForm>({
@@ -50,11 +51,21 @@ export default function CreateProjectPage() {
 
   const createProject = api.project.createProject.useMutation();
   const onSubmit = async (data: ProjectForm) => {
-    console.log("data: ", data);
+    const image = await uploadFile(images[0]!);
+    let filesUrl: string[];
+
+    if (files) {
+      const filesPromises = files.map(async (file) => {
+        const newFileObj = await uploadFile(file);
+        return newFileObj.url;
+      });
+      filesUrl = await Promise.all(filesPromises);
+    }
 
     createProject.mutate({
       ...data,
-      image: toBase64(data.image)
+      image: image.url,
+      files: filesUrl,
       published: true,
       timezone: "EST",
       category: "",
@@ -80,6 +91,7 @@ export default function CreateProjectPage() {
       type: contentType ?? "image/jpeg",
     });
     const imageUrl = URL.createObjectURL(file);
+    setImages([file]);
     setValue("image", imageUrl);
   };
 
@@ -167,6 +179,7 @@ export default function CreateProjectPage() {
             className="self-start"
             variant="primary"
             onClick={getRandomImage}
+            type="button"
           >
             Random Image
           </Button>
@@ -198,7 +211,7 @@ export default function CreateProjectPage() {
             >
               Positions
             </Label>
-            <button onClick={handleOpenModal}>
+            <button onClick={handleOpenModal} type="button">
               <PlusCircleIcon className="h-5 w-5 cursor-pointer text-white" />
             </button>
           </div>

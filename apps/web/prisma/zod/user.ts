@@ -13,12 +13,12 @@ export const UserModel = z.object({
   rating: z.number().int().nullish(),
   role: z.nativeEnum(Role),
   organizationId: z.string().nullish(),
-  personalWebsite: z.string(),
-  instagram: z.string(),
-  youtube: z.string(),
-  vimeo: z.string(),
-  github: z.string(),
-  tiktok: z.string(),
+  personalWebsite: z.string().nullish(),
+  instagram: z.string().nullish(),
+  youtube: z.string().nullish(),
+  vimeo: z.string().nullish(),
+  github: z.string().nullish(),
+  tiktok: z.string().nullish(),
 })
 
 export interface CompleteUser extends z.infer<typeof UserModel> {
