@@ -2,7 +2,7 @@ import { prisma } from "@server/db";
 import { TRPCError } from "@trpc/server";
 import { ProjectModel } from "prisma/zod";
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const optionalTextAreaSchema = z
   .string()
@@ -35,7 +35,7 @@ export const createPostSchema = z.object({
 });
 
 export const projectRouter = createTRPCRouter({
-  createProject: publicProcedure
+  createProject: protectedProcedure
     .input(ProjectModel)
     .mutation(async ({ ctx, input }) => {
       let files = undefined;

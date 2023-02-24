@@ -28,6 +28,7 @@ import { cloudinary } from "@server/cloudinary";
 import { api } from "@utils/api";
 import { toBase64 } from "@utils/base64";
 import { uploadFile } from "@utils/cloudinary";
+import { Geocoder } from "../components/geocoder";
 
 export default function CreateProjectPage() {
   const { control, handleSubmit, setValue, watch } = useForm<ProjectForm>({
@@ -139,6 +140,16 @@ export default function CreateProjectPage() {
             )}
           />
         </div>
+
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="location">Location</Label>
+          <Controller
+            name="location"
+            control={control}
+            render={({ field }) => <Geocoder onChange={field.onChange} />}
+          />
+        </div>
+
         <div className="flex flex-col gap-2">
           <Label htmlFor="location">Location</Label>
           <Controller
