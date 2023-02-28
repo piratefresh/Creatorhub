@@ -10,7 +10,11 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ["source.unsplash.com", "avatars.githubusercontent.com"],
+    domains: [
+      "source.unsplash.com",
+      "avatars.githubusercontent.com",
+      "res.cloudinary.com",
+    ],
   },
   transpilePackages: ["ui"],
   experimental: {

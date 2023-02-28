@@ -44,6 +44,7 @@ interface MapboxGeocodeFeature {
 
 export const Geocoder = ({
   onChange,
+
   placeholder,
   value,
   defaultValue,
@@ -57,25 +58,26 @@ export const Geocoder = ({
   const geocoder = geocodingService(baseClient);
 
   const formatData = (value: SelectValue) => {
+    console.log("value: ", value);
     // field.onChange(value?.label || "");
-    if (value?.item) {
-      const lat = value?.item?.geometry?.coordinates[0];
-      const lng = value?.item?.geometry?.coordinates[1];
+    if (value) {
+      const lat = value?.geometry?.coordinates[0];
+      const lng = value?.geometry?.coordinates[1];
 
-      const cityAttr = value?.item.id.startsWith("place")
-        ? value?.item
-        : value?.item.context.find(({ id }) => id.startsWith("place"));
+      const cityAttr = value.id.startsWith("place")
+        ? value
+        : value.context.find(({ id }) => id.startsWith("place"));
 
-      const regionAttr = value?.item.id.startsWith("region")
-        ? value?.item
-        : value?.item.context.find(({ id }) => id.startsWith("region"));
+      const regionAttr = value.id.startsWith("region")
+        ? value
+        : value.context.find(({ id }) => id.startsWith("region"));
 
-      const countryAttr = value?.item.context.find(({ id }) =>
+      const countryAttr = value.context.find(({ id }) =>
         id.startsWith("country")
       );
 
       const city = cityAttr.text;
-      const region = regionAttr.short_code.split("-")[1];
+      const region = regionAttr?.short_code.split("-")[1];
 
       console.log("Formatted: ", value);
 
@@ -116,7 +118,11 @@ export const Geocoder = ({
       options={results}
       value={selected!}
       onChange={setQuery}
-      onSelect={(option) => setSelected(option)}
+      onSelect={(option) => {
+        console.log("option: ", option);
+        formatData(option);
+        setSelected(option);
+      }}
     />
   );
 };

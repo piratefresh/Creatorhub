@@ -2,7 +2,7 @@ import { prisma } from "@server/db";
 import { TRPCError } from "@trpc/server";
 import { ProjectModel } from "prisma/zod";
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const optionalTextAreaSchema = z
   .string()
@@ -41,7 +41,7 @@ export const projectRouter = createTRPCRouter({
       let files = undefined;
       let image;
       try {
-        console.log("image ", input.image);
+        console.log("input ", input);
         image = await ctx.cloudinary.uploadFile(input.image);
 
         if (input.files) {
@@ -57,9 +57,15 @@ export const projectRouter = createTRPCRouter({
         });
       }
 
+      const { positions: positionsInput, ...projectInput } = input;
+
+      const positions = await prisma.position.createMany({
+        data: positionsInput,
+      });
+
       const project = await prisma.project.create({
         data: {
-          ...input,
+          ...projectInput,
           files: [""],
           category: "",
           image: image.secure_url,
@@ -68,4 +74,13 @@ export const projectRouter = createTRPCRouter({
 
       return project;
     }),
+  getProjects: publicProcedure.query(async ({ ctx }) => {
+    try {
+      return prisma.project.findMany({
+        include: {
+          positions: true,
+        },
+      });
+    } catch (e) {}
+  }),
 });

@@ -21,7 +21,7 @@ export const MENU_ITEMS: MenuLinksProps[] = [
       <TvIcon className="h-5 w-5" style={{ width: "20px", height: "20px" }} />
     ),
     label: "Find Projects",
-    href: "/findprojects",
+    href: "/projects",
   },
   {
     icon: (

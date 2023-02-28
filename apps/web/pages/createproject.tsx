@@ -52,6 +52,7 @@ export default function CreateProjectPage() {
 
   const createProject = api.project.createProject.useMutation();
   const onSubmit = async (data: ProjectForm) => {
+    console.log("data: ", data);
     const image = await uploadFile(images[0]!);
     let filesUrl: string[];
 
@@ -70,8 +71,6 @@ export default function CreateProjectPage() {
       published: true,
       timezone: "EST",
       category: "",
-      lat: 39.9526,
-      lng: 75.1652,
     });
   };
   const [openModal, setOpenModal] = React.useState(false);
@@ -91,6 +90,12 @@ export default function CreateProjectPage() {
     const file = new File([blob], "randomImage", {
       type: contentType ?? "image/jpeg",
     });
+    const imageUrl = URL.createObjectURL(file);
+    setImages([file]);
+    setValue("image", imageUrl);
+  };
+
+  const setImage = (file: File) => {
     const imageUrl = URL.createObjectURL(file);
     setImages([file]);
     setValue("image", imageUrl);
@@ -146,16 +151,18 @@ export default function CreateProjectPage() {
           <Controller
             name="location"
             control={control}
-            render={({ field }) => <Geocoder onChange={field.onChange} />}
-          />
-        </div>
+            render={({ field }) => (
+              <Geocoder
+                onChange={(location) => {
+                  setValue("lat", location.lat);
+                  setValue("lng", location.lng);
+                  setValue("city", location.city);
+                  setValue("state", location.region ?? "");
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="location">Location</Label>
-          <Controller
-            name="location"
-            control={control}
-            render={({ field }) => <Input onChange={field.onChange} />}
+                  field.onChange(location.value);
+                }}
+              />
+            )}
           />
         </div>
 
@@ -185,7 +192,10 @@ export default function CreateProjectPage() {
               />
             </div>
           )}
-          <FileUpload accept={{ "image/*": [] }} onChange={setImages} />
+          <FileUpload
+            accept={{ "image/*": [] }}
+            onChange={(files) => setImage(files[0])}
+          />
           <Button
             className="self-start"
             variant="primary"

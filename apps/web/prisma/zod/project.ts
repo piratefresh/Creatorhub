@@ -9,6 +9,7 @@ import {
   RelatedMembershipsModel,
   CompleteApplications,
   RelatedApplicationsModel,
+  PositionModel,
 } from "./index";
 
 export const ProjectModel = z.object({
@@ -22,7 +23,7 @@ export const ProjectModel = z.object({
   files: z.string().array(),
   inProduction: z.boolean(),
   category: z.string().nullish(),
-  // authorId: z.string().nullish(),
+  positions: PositionModel.array(),
   locationType: z.nativeEnum(LocationType),
   location: z.string(),
   state: z.string().nullish(),
