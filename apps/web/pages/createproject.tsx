@@ -24,11 +24,10 @@ import {
 import { ProjectForm, PositionWithSkill } from "types/index.t";
 import Image from "next/image";
 import { humanFileSize } from "@utils/humanFileSize";
-import { cloudinary } from "@server/cloudinary";
 import { api } from "@utils/api";
-import { toBase64 } from "@utils/base64";
 import { uploadFile } from "@utils/cloudinary";
 import { Geocoder } from "../components/geocoder";
+import { LocationType } from "@prisma/client";
 
 export default function CreateProjectPage() {
   const { control, handleSubmit, setValue, watch } = useForm<ProjectForm>({
@@ -48,13 +47,13 @@ export default function CreateProjectPage() {
   const positions = useWatch({ control, name: "positions" });
   const image = useWatch({ control, name: "image" });
 
-  const allValues = watch();
+  const locationType = useWatch({ control, name: "locationType" });
 
   const createProject = api.project.createProject.useMutation();
   const onSubmit = async (data: ProjectForm) => {
     console.log("data: ", data);
     const image = await uploadFile(images[0]!);
-    let filesUrl: string[];
+    let filesUrl: string[] = [];
 
     if (files) {
       const filesPromises = files.map(async (file) => {
@@ -66,6 +65,7 @@ export default function CreateProjectPage() {
 
     createProject.mutate({
       ...data,
+      location: locationType === LocationType.REMOTE ? "Remote" : data.location,
       image: image.url,
       files: filesUrl,
       published: true,
@@ -115,8 +115,6 @@ export default function CreateProjectPage() {
     const value = e.currentTarget.value;
     const filteredFiles = files.filter((file) => file.name !== value);
 
-    console.log("value: ", value);
-
     setFiles(filteredFiles);
   };
 
@@ -146,25 +144,27 @@ export default function CreateProjectPage() {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="location">Location</Label>
-          <Controller
-            name="location"
-            control={control}
-            render={({ field }) => (
-              <Geocoder
-                onChange={(location) => {
-                  setValue("lat", location.lat);
-                  setValue("lng", location.lng);
-                  setValue("city", location.city);
-                  setValue("state", location.region ?? "");
+        {locationType !== LocationType.REMOTE ? (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="location">Location</Label>
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => (
+                <Geocoder
+                  onChange={(location) => {
+                    setValue("lat", location.lat);
+                    setValue("lng", location.lng);
+                    setValue("city", location.city);
+                    setValue("state", location.region ?? "");
 
-                  field.onChange(location.value);
-                }}
-              />
-            )}
-          />
-        </div>
+                    field.onChange(location.value);
+                  }}
+                />
+              )}
+            />
+          </div>
+        ) : null}
 
         <Controller
           name="locationType"

@@ -41,7 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <main
       className={cn(
-        "flex flex-col bg-darkPurple md:flex-row",
+        "flex min-h-screen flex-col bg-darkPurple md:flex-row",
         fontSans.variable,
         fontSans.className
       )}
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <TailwindIndicator />
 
       <MainNav session={session as Session} />
-      {children}
+      <div className="px-5">{children}</div>
     </main>
   );
 }

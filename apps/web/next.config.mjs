@@ -6,8 +6,24 @@
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./env.mjs"));
 
-/** @type {import("next").NextConfig} */
-const config = {
+/* Type safe nextjs routes */
+import removeImports from "next-remove-imports";
+import withRoutes from "nextjs-routes/config";
+/**
+ * Credit to https://github.com/izszzz/tunescore/blob/develop/next.config.mjs
+ * Don't be scared of the generics here.
+ * All they do is to give us autocompletion when using this.
+ *
+ * @template {import('next').NextConfig} T
+ * @param {T} config - A generic parameter that flows through to the return type
+ * @constraint {{import('next').NextConfig}}
+ */
+
+function defineNextConfig(config) {
+  return withRoutes()(removeImports()(config));
+}
+
+export default defineNextConfig({
   reactStrictMode: true,
   images: {
     domains: [
@@ -31,5 +47,4 @@ const config = {
   //   locales: ["en"],
   //   defaultLocale: "en",
   // },
-};
-export default config;
+});

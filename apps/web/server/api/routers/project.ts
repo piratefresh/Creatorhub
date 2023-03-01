@@ -38,6 +38,7 @@ export const projectRouter = createTRPCRouter({
   createProject: protectedProcedure
     .input(ProjectModel)
     .mutation(async ({ ctx, input }) => {
+      console.log("input: ", input);
       let files = undefined;
       let image;
       try {
@@ -59,18 +60,26 @@ export const projectRouter = createTRPCRouter({
 
       const { positions: positionsInput, ...projectInput } = input;
 
-      const positions = await prisma.position.createMany({
-        data: positionsInput,
-      });
-
       const project = await prisma.project.create({
         data: {
           ...projectInput,
           files: [""],
           category: "",
           image: image.secure_url,
+          authorId: ctx.session.user.id,
         },
       });
+
+      const newPostions = positionsInput.map((pos) => ({
+        ...pos,
+        projectId: project.id,
+      }));
+
+      const positions = await prisma.position.createMany({
+        data: newPostions,
+      });
+
+      console.log("positions: ", positions);
 
       return project;
     }),
@@ -79,6 +88,7 @@ export const projectRouter = createTRPCRouter({
       return prisma.project.findMany({
         include: {
           positions: true,
+          author: true,
         },
       });
     } catch (e) {}

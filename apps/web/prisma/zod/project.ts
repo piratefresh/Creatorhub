@@ -22,12 +22,16 @@ export const ProjectModel = z.object({
   image: z.string(),
   files: z.string().array(),
   inProduction: z.boolean(),
+  positions: z
+    .object({
+      title: z.string(),
+      description: z.string(),
+    })
+    .array(),
   category: z.string().nullish(),
-  positions: PositionModel.array(),
+  authorId: z.string().nullish(),
   locationType: z.nativeEnum(LocationType),
   location: z.string(),
-  state: z.string().nullish(),
-  city: z.string().nullish(),
   lat: z.number().nullish(),
   lng: z.number().nullish(),
   timezone: z.string(),

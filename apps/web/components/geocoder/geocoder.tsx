@@ -6,6 +6,8 @@ import React from "react";
 interface FormatDataResponse {
   lat: number;
   lng: number;
+  country: string;
+  neighborhood: string;
   city: string;
   region: string;
   value: string;
@@ -64,27 +66,47 @@ export const Geocoder = ({
       const lat = value?.geometry?.coordinates[0];
       const lng = value?.geometry?.coordinates[1];
 
+      const neighborhoodAttr = value.id?.startsWith("neighborhood")
+        ? value
+        : value.context?.find(({ id }: { id: string }) =>
+            id.startsWith("neighborhood")
+          );
+
+      const regionAttr = value.id?.startsWith("region")
+        ? value
+        : value.context?.find(({ id }: { id: string }) =>
+            id.startsWith("region")
+          );
+
       const cityAttr = value.id.startsWith("place")
         ? value
-        : value.context.find(({ id }) => id.startsWith("place"));
+        : value.context.find(({ id }: { id: string }) =>
+            id.startsWith("place")
+          );
 
-      const regionAttr = value.id.startsWith("region")
+      const countryAttr = value.id?.startsWith("country")
         ? value
-        : value.context.find(({ id }) => id.startsWith("region"));
+        : value.context?.find(({ id }: { id: string }) =>
+            id.startsWith("country")
+          );
 
-      const countryAttr = value.context.find(({ id }) =>
-        id.startsWith("country")
-      );
+      console.log("countryAttr: ", countryAttr);
 
-      const city = cityAttr.text;
+      const country = countryAttr.text;
       const region = regionAttr?.short_code.split("-")[1];
+      const neighborhood = neighborhoodAttr ?? "";
+      const city = cityAttr.text;
+
+      console.log("neighborhood: ", neighborhood);
 
       console.log("Formatted: ", value);
 
       return onChange({
         lat,
         lng,
+        country,
         city,
+        neighborhood,
         region,
         value: value.value,
       });
@@ -96,7 +118,7 @@ export const Geocoder = ({
       const res = await geocoder
         .forwardGeocode({
           query: query,
-          types: ["place", "neighborhood"],
+          types: ["neighborhood", "country", "region", "place"],
         })
         .send();
       if (!res.body.features || res.body.features.length === 0) return null;
