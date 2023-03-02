@@ -1,38 +1,11 @@
+import { Project } from "@prisma/client";
 import { prisma } from "@server/db";
 import { TRPCError } from "@trpc/server";
 import { ProjectModel } from "prisma/zod";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
-export const optionalTextAreaSchema = z
-  .string()
-  .trim()
-  .optional()
-  .describe("Text: // Text...");
-
-export const textAreaSchema = z
-  .string()
-  .trim()
-  .min(1, { message: "Text must not be empty." })
-  .describe("Text: // Text...");
-
-export const fileInputSchema = z.string();
-
-export const createPostSchema = z.object({
-  title: z
-    .string({ required_error: "Required." })
-    .trim()
-    .min(1, { message: "title must not be empty." })
-    .describe("Title: // Title..."),
-  description: textAreaSchema.optional(),
-  image: fileInputSchema.optional(),
-  nsfw: z.boolean({ required_error: "Required." }).describe("NSFW: "),
-  subName: z
-    .string({ required_error: "Required." })
-    .trim()
-    .min(1, { message: "sub name must not be empty." })
-    .describe("Community: // Community..."),
-});
+export const GetProjectModel = z.object({ id: z.string() });
 
 export const projectRouter = createTRPCRouter({
   createProject: protectedProcedure
@@ -60,7 +33,7 @@ export const projectRouter = createTRPCRouter({
 
       const { positions: positionsInput, ...projectInput } = input;
 
-      const project = await prisma.project.create({
+      const project: Project = await prisma.project.create({
         data: {
           ...projectInput,
           files: [""],
@@ -70,16 +43,30 @@ export const projectRouter = createTRPCRouter({
         },
       });
 
+      await prisma.project.update({
+        where: {
+          id: project.id,
+        },
+        data: {
+          memberships: {
+            connect: {
+              projectId_userId: {
+                projectId: project.id,
+                userId: ctx.session.user.id,
+              },
+            },
+          },
+        },
+      });
+
       const newPostions = positionsInput.map((pos) => ({
         ...pos,
         projectId: project.id,
       }));
 
-      const positions = await prisma.position.createMany({
+      await prisma.position.createMany({
         data: newPostions,
       });
-
-      console.log("positions: ", positions);
 
       return project;
     }),
@@ -93,4 +80,32 @@ export const projectRouter = createTRPCRouter({
       });
     } catch (e) {}
   }),
+  getProject: publicProcedure
+    .input(GetProjectModel)
+    .query(async ({ ctx, input }) => {
+      try {
+        return prisma.project.findUnique({
+          where: {
+            id: input.id,
+          },
+          include: {
+            positions: true,
+            author: true,
+            memberships: {
+              include: {
+                user: {
+                  select: {
+                    name: true,
+                    role: true,
+                    email: true,
+                    id: true,
+                    image: true,
+                  },
+                },
+              },
+            },
+          },
+        });
+      } catch (e) {}
+    }),
 });

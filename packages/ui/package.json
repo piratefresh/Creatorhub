@@ -89,6 +89,7 @@
     "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
     "react-hook-form": "^7.43.1",
+    "react-masonry-css": "^1.0.16",
     "react-merge-refs": "^2.0.1",
     "react-stately": "^3.20.0",
     "storybook-addon-next": "^1.7.1",

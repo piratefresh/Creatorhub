@@ -9,9 +9,17 @@ import {
   Card,
   Input,
   Label,
+  Masonry,
 } from "ui";
 import { formatDistanceToNow } from "date-fns";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+
+const breakpointColumnsObj = {
+  default: 3,
+  1100: 3,
+  700: 2,
+  500: 1,
+};
 
 const FindProjectPage = () => {
   const projects = api.project.getProjects.useQuery();
@@ -20,9 +28,9 @@ const FindProjectPage = () => {
   console.log(projects);
   return (
     <div className="flex flex-col gap-4">
-      <div className="pinkPurpleGradientText text-display-md font-bold">
+      <h2 className="pinkPurpleGradientText text-display-md font-bold">
         Find a project
-      </div>
+      </h2>
       <div>
         <Label htmlFor="search">Search</Label>
         <Input
@@ -34,23 +42,28 @@ const FindProjectPage = () => {
           }
         />
       </div>
-      <div
-        className="relative grid grid-flow-dense grid-cols-1 items-start gap-4 md:grid-cols-3"
-        style={{ gridAutoRows: "max-content" }}
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="flex"
+        columnClassName="my-masonry-grid_column"
       >
         {projects.data.map((project) => (
-          <Card key={project.id}>
+          <Card key={project.id} className="mb-4 ml-4">
             <div className="flex max-w-[400px] flex-col gap-4 p-4 text-gray-300">
               <div className="flex flex-row items-start justify-between gap-1">
-                <Link href={`project/${[project.id]}`}>
-                  <h1 className="cursor-pointer break-words text-display-xs font-bold text-purple-300">
-                    {project.title}
-                  </h1>
-                </Link>
+                <div className="flex flex-col">
+                  <Link href={`project/${[project.id]}`}>
+                    <h1 className="cursor-pointer break-words text-display-xs font-bold text-purple-300">
+                      {project.title}
+                    </h1>
+                  </Link>
+                  <span className="text-xs text-gray-300">
+                    Posted by {project.author?.name}
+                  </span>
+                </div>
                 <span className="whitespace-nowrap text-xs text-gray-300">
                   {formatDistanceToNow(project.updatedAt)}
                 </span>
-                <span>Posted by {project.author?.name}</span>
               </div>
 
               <span>{project.location}</span>
@@ -91,7 +104,7 @@ const FindProjectPage = () => {
             </div>
           </Card>
         ))}
-      </div>
+      </Masonry>
     </div>
   );
 };

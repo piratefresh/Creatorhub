@@ -16,6 +16,7 @@ export { FileTypeIcon } from "./FileTypeIcon";
 export { FileUpload } from "./FileUpload";
 export { Input } from "./Input";
 export { Label } from "./Label";
+export { Masonry } from "./Masonry";
 export { Menu, SideMenu } from "./Menu";
 export { Modal } from "./Modal";
 export { Select } from "./Select";

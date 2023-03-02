@@ -35,6 +35,7 @@ export type TableProps<TData extends object> = {
   setRowSelection?: OnChangeFn<RowSelectionState>;
   sorting?: SortingState;
   rowSelection?: RowSelectionState;
+  title?: string;
 };
 
 export const Table = <TData extends object>({
@@ -49,6 +50,7 @@ export const Table = <TData extends object>({
   setSorting,
   sorting,
   rowSelection,
+  title = "Table",
 }: TableProps<TData>) => {
   // const [globalFilter, setGlobalFilter] = React.useState("");
 
@@ -75,8 +77,8 @@ export const Table = <TData extends object>({
   return (
     <div className="relative max-w-7xl overflow-x-auto border border-gray-500 shadow-md sm:rounded-lg">
       <div className="flex flex-row items-center gap-4 px-5 py-5">
-        <h1 className="text-lg text-gray-100">Team Members</h1>
-        <Badge variant="primary">100 Users</Badge>
+        <h1 className="text-lg text-gray-100">{title}</h1>
+        <Badge variant="primary">{data.length}</Badge>
       </div>
 
       <table className="w-full text-left text-xs">
